@@ -1,0 +1,228 @@
+{% extends 'adminlte/base.html' %}
+
+{% block content %}
+<div id="content-main" class="container-fluid">
+    
+    
+    
+    <div class="row">
+        <div class="col-md-12">
+            <form enctype="multipart/form-data" action="" method="post" id="category_form" novalidate=""><input type="hidden" name="csrfmiddlewaretoken" value="o1ZLyPYk0w7YD0r7I0Uta2gGfsZzm0qxtjgAPvwkzuOjPAHCA6Gv1W8M2cz29fhX">
+
+                
+                
+                
+                
+
+                
+                
+                <div class="card card-info">
+    <div class="card-header bg-primary">
+        <h3 class="card-title"></h3>
+        
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+            </button>
+          </div>
+    </div>
+    <div class="card-body">
+        
+        <div class="form-group row form-row field-name">
+            
+            
+            <label for="name" class="col-sm-2 col-form-label"><label class="required" for="id_name">Name:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="text" name="name" class="vTextField" maxlength="50" required="" id="id_name">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-image">
+            
+            
+            <label for="image" class="col-sm-2 col-form-label"><label class="required" for="id_image">Image:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="file" name="image" accept="image/*" required="" id="id_image">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-parent_category">
+            
+            
+            <label for="parent_category" class="col-sm-2 col-form-label"><label class="required" for="id_parent_category">Parent category:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="number" name="parent_category" class="vIntegerField" required="" id="id_parent_category">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-path">
+            
+            
+            <label for="path" class="col-sm-2 col-form-label"><label class="required" for="id_path">Path:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="text" name="path" class="vTextField" maxlength="50" required="" id="id_path">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-description">
+            
+            
+            <label for="description" class="col-sm-2 col-form-label"><label class="required" for="id_description">Description:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="text" name="description" class="vTextField" maxlength="50" required="" id="id_description">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-is_active">
+            
+            
+            <label for="is_active" class="col-sm-2 col-form-label"><label for="id_is_active">Is active:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <select name="is_active" id="id_is_active">
+  <option value="">---------</option>
+
+  <option value="1" selected="">Active</option>
+
+  <option value="0">Inactive</option>
+
+</select>
+                
+                
+                
+                <div class="help">1-&gt;Active, 0-&gt;Inactive</div>
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-deleted">
+            
+            
+            <label for="deleted" class="col-sm-2 col-form-label"><label for="id_deleted">Deleted:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <select name="deleted" id="id_deleted">
+  <option value="">---------</option>
+
+  <option value="1">yes</option>
+
+  <option value="0" selected="">No</option>
+
+</select>
+                
+                
+                
+                <div class="help">1-&gt;yes, 0-&gt;No</div>
+                
+            </div>
+
+
+            
+        </div>
+        
+    </div>
+</div>
+                
+                
+
+                
+
+                
+                
+                
+
+                
+
+                
+<div class="submit-row">
+
+
+
+<input type="submit" value="Save" class="default" name="_save">
+
+
+
+
+
+
+<input type="submit" value="Save and add another" name="_addanother">
+
+<input type="submit" value="Save and continue editing
+" name="_continue">
+
+
+
+
+</div>
+
+
+                
+                <script type="text/javascript" id="django-admin-form-add-constants" src="/static/admin/js/change_form.js" data-model-name="category">
+                    </script>
+                
+
+                
+                
+<script id="django-admin-prepopulated-fields-constants" src="/static/admin/js/prepopulate_init.js" data-prepopulated-fields="[]">
+</script>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

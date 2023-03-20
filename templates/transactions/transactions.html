@@ -1,0 +1,225 @@
+{% extends 'adminlte/base.html' %}
+
+{% block content %}
+
+<div id="content-main" class="container-fluid">
+    
+    
+    
+    <div class="row">
+        <div class="col-md-12">
+            <form action="" method="post" id="eventtransaction_form" novalidate=""><input type="hidden" name="csrfmiddlewaretoken" value="HuCVvngwFHwnjoQ8yyJfPZq8nuMNk7RcMMTKM3OweFdIvY6DqEvhGTieaemg7mIC">
+
+                
+                
+                
+                
+
+                
+                
+                <div class="card card-info">
+    <div class="card-header bg-primary">
+        <h3 class="card-title"></h3>
+        
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+            </button>
+          </div>
+    </div>
+    <div class="card-body">
+        
+        <div class="form-group row form-row field-event_id">
+            
+            
+            <label for="event_id" class="col-sm-2 col-form-label"><label class="required" for="id_event_id">Event id:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <div class="related-widget-wrapper" data-model-ref="event">
+    <select name="event_id" required="" id="id_event_id">
+  <option value="" selected="">---------</option>
+
+</select>
+    
+        <a class="related-widget-wrapper-link change-related" id="change_id_event_id" data-href-template="/admin/event_management_application/event/__fk__/change/?_to_field=event_id&amp;_popup=1" data-popup="yes" title="Change selected event"><img src="/static/admin/img/icon-changelink.svg" alt="Change"></a><a class="related-widget-wrapper-link add-related" id="add_id_event_id" data-popup="yes" href="/admin/event_management_application/event/add/?_to_field=event_id&amp;_popup=1" title="Add another event"><img src="/static/admin/img/icon-addlink.svg" alt="Add"></a><a class="related-widget-wrapper-link view-related" id="view_id_event_id" data-href-template="/admin/event_management_application/event/__fk__/change/?_to_field=event_id" title="View selected event"><img src="/static/admin/img/icon-viewlink.svg" alt="View"></a>
+    
+</div>
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-transaction_number">
+            
+            
+            <label for="transaction_number" class="col-sm-2 col-form-label"><label class="required" for="id_transaction_number">Transaction number:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="number" name="transaction_number" class="vIntegerField" required="" id="id_transaction_number">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-payment_method">
+            
+            
+            <label for="payment_method" class="col-sm-2 col-form-label"><label class="required" for="id_payment_method">Payment method:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <select name="payment_method" required="" id="id_payment_method">
+  <option value="" selected="">---------</option>
+
+  <option value="Cash">Cash</option>
+
+  <option value="Cheque">Cheque</option>
+
+  <option value="Online">Online</option>
+
+  <option value="Other">Other</option>
+
+</select>
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-amount">
+            
+            
+            <label for="amount" class="col-sm-2 col-form-label"><label class="required" for="id_amount">Amount:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="number" name="amount" class="vIntegerField" required="" id="id_amount">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-created_on">
+            
+            
+            <label for="created_on" class="col-sm-2 col-form-label"><label class="required">Created on:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <p class="datetime">
+  Date: <input type="text" name="created_on_0" value="2023-03-17" class="vDateField" size="10" required="" id="id_created_on_0"><span class="datetimeshortcuts">&nbsp;<a href="#">Today</a>&nbsp;|&nbsp;<a href="#" id="calendarlink0"><span class="date-icon" title="Choose a Date"></span></a></span>
+
+<br>
+  Time: <input type="text" name="created_on_1" value="05:08:19" class="vTimeField" size="8" required="" id="id_created_on_1"><span class="datetimeshortcuts">&nbsp;<a href="#">Now</a>&nbsp;|&nbsp;<a href="#" id="clocklink0"><span class="clock-icon" title="Choose a Time"></span></a></span>
+
+
+</p><input type="hidden" name="initial-created_on_0" value="2023-03-17" id="initial-id_created_on_0"><input type="hidden" name="initial-created_on_1" value="05:08:19" id="initial-id_created_on_1">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-updated_on">
+            
+            
+            <label for="updated_on" class="col-sm-2 col-form-label"><label>Updated on:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <p class="datetime">
+  Date: <input type="text" name="updated_on_0" value="2023-03-17" class="vDateField" size="10" id="id_updated_on_0"><span class="datetimeshortcuts">&nbsp;<a href="#">Today</a>&nbsp;|&nbsp;<a href="#" id="calendarlink1"><span class="date-icon" title="Choose a Date"></span></a></span>
+
+<br>
+  Time: <input type="text" name="updated_on_1" value="05:08:19" class="vTimeField" size="8" id="id_updated_on_1"><span class="datetimeshortcuts">&nbsp;<a href="#">Now</a>&nbsp;|&nbsp;<a href="#" id="clocklink1"><span class="clock-icon" title="Choose a Time"></span></a></span>
+
+
+</p><input type="hidden" name="initial-updated_on_0" value="2023-03-17" id="initial-id_updated_on_0"><input type="hidden" name="initial-updated_on_1" value="05:08:19" id="initial-id_updated_on_1">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+    </div>
+</div>
+                
+                
+
+                
+
+                
+                
+                
+
+                
+
+                
+<div class="submit-row">
+
+
+
+<input type="submit" value="Save" class="default" name="_save">
+
+
+
+
+
+
+<input type="submit" value="Save and add another" name="_addanother">
+
+<input type="submit" value="Save and continue editing
+" name="_continue">
+
+
+
+
+</div>
+
+
+                
+                <script type="text/javascript" id="django-admin-form-add-constants" src="/static/admin/js/change_form.js" data-model-name="eventtransaction">
+                    </script>
+                
+
+                
+                
+<script id="django-admin-prepopulated-fields-constants" src="/static/admin/js/prepopulate_init.js" data-prepopulated-fields="[]">
+</script>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

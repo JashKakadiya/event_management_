@@ -1,0 +1,468 @@
+{% extends 'adminlte/base.html' %}
+
+{% block content %}
+
+<div id="content-main" class="container-fluid">
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <form enctype="multipart/form-data" action="" method="post" id="event_form" novalidate=""><input
+                    type="hidden" name="csrfmiddlewaretoken"
+                    value="E7VEbjgf6ElTB1nJsIcUKQlKOUOJsFqEJpctsZOfFC2eNBDekOYWBKdQBEocfUh4">
+
+
+
+
+
+
+
+
+                <div class="card card-info">
+                    <div class="card-header bg-primary">
+                        <h3 class="card-title"></h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group row form-row field-event_parent_id">
+
+
+                            <label for="event_parent_id" class="col-sm-2 col-form-label"><label class="required"
+                                    for="id_event_parent_id">Event parent id:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <input type="number" name="event_parent_id" class="vIntegerField" required=""
+                                    id="id_event_parent_id">
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-event_location_id">
+
+
+                            <label for="event_location_id" class="col-sm-2 col-form-label"><label class="required"
+                                    for="id_event_location_id">Event location id:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <div class="related-widget-wrapper" data-model-ref="event location">
+                                    <select name="event_location_id" required="" id="id_event_location_id">
+                                        <option value="" selected=""> select </option>
+
+                                    </select>
+
+                                    <a class="related-widget-wrapper-link change-related"
+                                        id="change_id_event_location_id"
+                                        data-href-template="/admin/event_management_application/eventlocation/__fk__/change/?_to_field=event_location_id&amp;_popup=1"
+                                        data-popup="yes" title="Change selected event location"><img
+                                            src="/static/admin/img/icon-changelink.svg" alt="Change"></a><a
+                                        class="related-widget-wrapper-link add-related" id="add_id_event_location_id"
+                                        data-popup="yes"
+                                        href="/admin/event_management_application/eventlocation/add/?_to_field=event_location_id&amp;_popup=1"
+                                        title="Add another event location"><img src="/static/admin/img/icon-addlink.svg"
+                                            alt="Add"></a><a class="related-widget-wrapper-link view-related"
+                                        id="view_id_event_location_id"
+                                        data-href-template="/admin/event_management_application/eventlocation/__fk__/change/?_to_field=event_location_id"
+                                        title="View selected event location"><img
+                                            src="/static/admin/img/icon-viewlink.svg" alt="View"></a>
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-client_id">
+
+
+                            <label for="client_id" class="col-sm-2 col-form-label"><label class="required"
+                                    for="id_client_id">Client id:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <input type="number" name="client_id" class="vIntegerField" required=""
+                                    id="id_client_id">
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-name">
+
+
+                            <label for="name" class="col-sm-2 col-form-label"><label class="required"
+                                    for="id_name">Name:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <input type="text" name="name" class="vTextField" maxlength="50" required=""
+                                    id="id_name">
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-dateTime_from">
+
+
+                            <label for="dateTime_from" class="col-sm-2 col-form-label"><label class="required">DateTime
+                                    from:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <p class="datetime">
+                                    Date: <input type="text" name="dateTime_from_0" class="vDateField" size="10"
+                                        required="" id="id_dateTime_from_0"><span class="datetimeshortcuts">&nbsp;<a
+                                            href="#">Today</a>&nbsp;|&nbsp;<a href="#" id="calendarlink0"><span
+                                                class="date-icon" title="Choose a Date"></span></a></span>
+
+                                    <br>
+                                    Time: <input type="text" name="dateTime_from_1" class="vTimeField" size="8"
+                                        required="" id="id_dateTime_from_1"><span class="datetimeshortcuts">&nbsp;<a
+                                            href="#">Now</a>&nbsp;|&nbsp;<a href="#" id="clocklink0"><span
+                                                class="clock-icon" title="Choose a Time"></span></a></span>
+
+
+                                </p>
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-dateTime_to">
+
+
+                            <label for="dateTime_to" class="col-sm-2 col-form-label"><label class="required">DateTime
+                                    to:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <p class="datetime">
+                                    Date: <input type="text" name="dateTime_to_0" class="vDateField" size="10"
+                                        required="" id="id_dateTime_to_0"><span class="datetimeshortcuts">&nbsp;<a
+                                            href="#">Today</a>&nbsp;|&nbsp;<a href="#" id="calendarlink1"><span
+                                                class="date-icon" title="Choose a Date"></span></a></span>
+
+                                    <br>
+                                    Time: <input type="text" name="dateTime_to_1" class="vTimeField" size="8"
+                                        required="" id="id_dateTime_to_1"><span class="datetimeshortcuts">&nbsp;<a
+                                            href="#">Now</a>&nbsp;|&nbsp;<a href="#" id="clocklink1"><span
+                                                class="clock-icon" title="Choose a Time"></span></a></span>
+
+
+                                </p>
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-sub_events">
+
+
+                            <label for="sub_events" class="col-sm-2 col-form-label"><label class="required"
+                                    for="id_sub_events">Sub events:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <input type="file" name="sub_events" accept="image/*" required="" id="id_sub_events">
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-has_tickets">
+
+
+                            <label for="has_tickets" class="col-sm-2 col-form-label"><label class="vCheckboxLabel"
+                                    for="id_has_tickets">Has tickets</label></label>
+                            <div class="col-sm-10">
+
+                                <input type="checkbox" name="has_tickets" id="id_has_tickets">
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-total_count">
+
+
+                            <label for="total_count" class="col-sm-2 col-form-label"><label class="required"
+                                    for="id_total_count">Total count:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <input type="number" name="total_count" class="vIntegerField" required=""
+                                    id="id_total_count">
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-total_cost">
+
+
+                            <label for="total_cost" class="col-sm-2 col-form-label"><label class="required"
+                                    for="id_total_cost">Total cost:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <input type="number" name="total_cost" class="vIntegerField" required=""
+                                    id="id_total_cost">
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-total_price">
+
+
+                            <label for="total_price" class="col-sm-2 col-form-label"><label class="required"
+                                    for="id_total_price">Total price:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <input type="number" name="total_price" class="vIntegerField" required=""
+                                    id="id_total_price">
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-event_grand_total">
+
+
+                            <label for="event_grand_total" class="col-sm-2 col-form-label"><label class="required"
+                                    for="id_event_grand_total">Event grand total:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <input type="number" name="event_grand_total" class="vIntegerField" required=""
+                                    id="id_event_grand_total">
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-paid_amount">
+
+
+                            <label for="paid_amount" class="col-sm-2 col-form-label"><label class="required"
+                                    for="id_paid_amount">Paid amount:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <input type="number" name="paid_amount" class="vIntegerField" required=""
+                                    id="id_paid_amount">
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-pending_amount">
+
+
+                            <label for="pending_amount" class="col-sm-2 col-form-label"><label class="required"
+                                    for="id_pending_amount">Pending amount:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <input type="number" name="pending_amount" class="vIntegerField" required=""
+                                    id="id_pending_amount">
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-created_on">
+
+
+                            <label for="created_on" class="col-sm-2 col-form-label"><label class="required">Created
+                                    on:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <p class="datetime">
+                                    Date: <input type="text" name="created_on_0" value="2023-03-17" class="vDateField"
+                                        size="10" required="" id="id_created_on_0"><span
+                                        class="datetimeshortcuts">&nbsp;<a href="#">Today</a>&nbsp;|&nbsp;<a href="#"
+                                            id="calendarlink2"><span class="date-icon"
+                                                title="Choose a Date"></span></a></span>
+
+                                    <br>
+                                    Time: <input type="text" name="created_on_1" value="05:06:39" class="vTimeField"
+                                        size="8" required="" id="id_created_on_1"><span
+                                        class="datetimeshortcuts">&nbsp;<a href="#">Now</a>&nbsp;|&nbsp;<a href="#"
+                                            id="clocklink2"><span class="clock-icon"
+                                                title="Choose a Time"></span></a></span>
+
+
+                                </p><input type="hidden" name="initial-created_on_0" value="2023-03-17"
+                                    id="initial-id_created_on_0"><input type="hidden" name="initial-created_on_1"
+                                    value="05:06:39" id="initial-id_created_on_1">
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group row form-row field-updated_on">
+
+
+                            <label for="updated_on" class="col-sm-2 col-form-label"><label>Updated on:</label></label>
+                            <div class="col-sm-10">
+
+
+
+                                <p class="datetime">
+                                    Date: <input type="text" name="updated_on_0" value="2023-03-17" class="vDateField"
+                                        size="10" id="id_updated_on_0"><span class="datetimeshortcuts">&nbsp;<a
+                                            href="#">Today</a>&nbsp;|&nbsp;<a href="#" id="calendarlink3"><span
+                                                class="date-icon" title="Choose a Date"></span></a></span>
+
+                                    <br>
+                                    Time: <input type="text" name="updated_on_1" value="05:06:39" class="vTimeField"
+                                        size="8" id="id_updated_on_1"><span class="datetimeshortcuts">&nbsp;<a
+                                            href="#">Now</a>&nbsp;|&nbsp;<a href="#" id="clocklink3"><span
+                                                class="clock-icon" title="Choose a Time"></span></a></span>
+
+
+                                </p><input type="hidden" name="initial-updated_on_0" value="2023-03-17"
+                                    id="initial-id_updated_on_0"><input type="hidden" name="initial-updated_on_1"
+                                    value="05:06:39" id="initial-id_updated_on_1">
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="submit-row">
+
+
+
+                    <input type="submit" value="Save" class="default" name="_save">
+
+                    <input type="submit" value="Save and add another" name="_addanother">
+
+                    <input type="submit" value="Save and continue editing" name="_continue">
+
+
+
+
+                </div>
+<script type="text/javascript" id="django-admin-form-add-constants"
+                    src="/static/admin/js/change_form.js" data-model-name="event">
+                    </script>
+
+
+
+
+                <script id="django-admin-prepopulated-fields-constants" src="/static/admin/js/prepopulate_init.js"
+                    data-prepopulated-fields="[]">
+                    </script>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

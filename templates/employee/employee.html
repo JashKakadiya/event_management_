@@ -1,0 +1,320 @@
+{% extends 'adminlte/base.html' %}
+
+{% block content %}
+<div class="col-md-12">
+    <form action="" method="post" id="employee_form" novalidate=""><input type="hidden" name="csrfmiddlewaretoken"
+            value="isEna8OK2uQkwgi3T5H8jgOVmidu3pIbnKVcrOmKBsxFIQyyLbtaaaG192NXQEzB">
+        <div class="card card-info">
+            <div class="card-header bg-primary">
+                <h3 class="card-title"></h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <div class="form-group row form-row field-employee_id">
+                    <label for="employee_id" class="col-sm-2 col-form-label"><label class="required"
+                            for="id_employee_id">Employee id:</label></label>
+                    <div class="col-sm-10">
+                        <input type="number" name="employee_id" class="vIntegerField" required="" id="id_employee_id">
+                    </div>
+                </div>
+                <div class="form-group row form-row field-first_name">
+                    <label for="first_name" class="col-sm-2 col-form-label"><label class="required"
+                            for="id_first_name">First name:</label></label>
+                    <div class="col-sm-10">
+                        <input type="text" name="first_name" class="vTextField" maxlength="50" required=""
+                            id="id_first_name">
+                    </div>
+                </div>
+                <div class="form-group row form-row field-last_name">
+                    <label for="last_name" class="col-sm-2 col-form-label"><label class="required"
+                            for="id_last_name">Last name:</label></label>
+                    <div class="col-sm-10">
+                        <input type="text" name="last_name" class="vTextField" maxlength="50" required=""
+                            id="id_last_name">
+                    </div>
+                </div>
+                <div class="form-group row form-row field-id_number">
+                    <label for="id_number" class="col-sm-2 col-form-label"><label class="required" for="id_id_number">Id
+                            number:</label></label>
+                    <div class="col-sm-10">
+                        <input type="number" name="id_number" class="vIntegerField" required="" id="id_id_number">
+                    </div>
+                </div>
+
+                <div class="form-group row form-row field-role">
+
+
+                    <label for="role" class="col-sm-2 col-form-label"><label class="required"
+                            for="id_role">Role:</label></label>
+                    <div class="col-sm-10">
+
+
+
+                        <input type="text" name="role" class="vTextField" maxlength="50" required="" id="id_role">
+
+
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="form-group row form-row field-address">
+
+
+                    <label for="address" class="col-sm-2 col-form-label"><label class="required"
+                            for="id_address">Address:</label></label>
+                    <div class="col-sm-10">
+
+
+
+                        <input type="text" name="address" class="vTextField" maxlength="50" required="" id="id_address">
+
+
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="form-group row form-row field-contact_number">
+
+
+                    <label for="contact_number" class="col-sm-2 col-form-label"><label class="required"
+                            for="id_contact_number">Contact number:</label></label>
+                    <div class="col-sm-10">
+
+
+
+                        <input type="number" name="contact_number" class="vIntegerField" required=""
+                            id="id_contact_number">
+
+
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="form-group row form-row field-email">
+
+
+                    <label for="email" class="col-sm-2 col-form-label"><label class="required"
+                            for="id_email">Email:</label></label>
+                    <div class="col-sm-10">
+
+
+
+                        <input type="text" name="email" class="vTextField" maxlength="50" required="" id="id_email">
+
+
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="form-group row form-row field-profile">
+
+
+                    <label for="profile" class="col-sm-2 col-form-label"><label class="required"
+                            for="id_profile">Profile:</label></label>
+                    <div class="col-sm-10">
+
+
+
+                        <input type="text" name="profile" class="vTextField" maxlength="50" required="" id="id_profile">
+
+
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="form-group row form-row field-is_active">
+
+
+                    <label for="is_active" class="col-sm-2 col-form-label"><label for="id_is_active">Is
+                            active:</label></label>
+                    <div class="col-sm-10">
+
+
+
+                        <select name="is_active" id="id_is_active">
+                            <option value=""> Select </option>
+
+                            <option value="1" selected="">Active</option>
+
+                            <option value="0">Inactive</option>
+
+                        </select>
+
+
+
+                        <!-- <div class="help">1-&gt;Active, 0-&gt;Inactive</div> -->
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="form-group row form-row field-deleted">
+
+
+                    <label for="deleted" class="col-sm-2 col-form-label"><label
+                            for="id_deleted">Deleted:</label></label>
+                    <div class="col-sm-10">
+
+
+
+                        <select name="deleted" id="id_deleted">
+                            <option value="">Select</option>
+
+                            <option value="1">yes</option>
+
+                            <option value="0" selected="">No</option>
+
+                        </select>
+
+
+
+                        <!-- <div class="help">1-&gt;yes, 0-&gt;No</div> -->
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="form-group row form-row field-created_on">
+
+
+                    <label for="created_on" class="col-sm-2 col-form-label"><label class="required">Created
+                            on:</label></label>
+                    <div class="col-sm-10">
+
+
+
+                        <p class="datetime">
+                            Date: <input style="width: 150px; margin-bottom: 5px;" type="date" name="created_on_0" value="2023-03-17" class="vDateField" size="10"
+                                required="" id="id_created_on_0"><span class="datetimeshortcuts">&nbsp;
+                                    <!-- <a href="#">Today</a>&nbsp;|&nbsp; -->
+                                    <!-- <a href="#" id="calendarlink0"><span class="date-icon" title="Choose a Date"></span></a></span> -->
+
+                            <br>
+                            Time: <input style="width: 150px; margin-bottom: 5px;" type="time" name="created_on_1" value="04:20:05" class="vTimeField" size="8"
+                                required="" id="id_created_on_1"><span class="datetimeshortcuts">&nbsp;
+                                    <!-- <a href="#">Now</a>&nbsp;|&nbsp;<a href="#" id="clocklink0"><span class="clock-icon"
+                                        title="Choose a Time"></span></a></span> -->
+
+
+                        </p><input type="hidden" name="initial-created_on_0" value="2023-03-17"
+                            id="initial-id_created_on_0"><input type="hidden" name="initial-created_on_1"
+                            value="04:20:05" id="initial-id_created_on_1">
+
+
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="form-group row form-row field-updated_on">
+
+
+                    <label for="updated_on" class="col-sm-2 col-form-label"><label>Updated on:</label></label>
+                    <div class="col-sm-10">
+                        <p class="datetime">
+                            Date: <input style="width: 150px; margin-bottom: 5px;" type="date" name="updated_on_0" value="2023-03-17" class="vDateField" size="10"
+                                id="id_updated_on_0"><span class="datetimeshortcuts">&nbsp;
+                                    <!-- <a
+                                    href="#">Today</a>&nbsp;|&nbsp;<a href="#" id="calendarlink1"><span
+                                        class="date-icon" title="Choose a Date"></span></a></span> -->
+
+                            <br>
+                            Time: <input style="width: 150px; margin-bottom: 5px;" type="time" name="updated_on_1" value="04:20:05" class="vTimeField" size="8"
+                                id="id_updated_on_1"><span class="datetimeshortcuts">&nbsp;
+                                    <!-- <a
+                                    href="#">Now</a>&nbsp;|&nbsp;<a href="#" id="clocklink1"><span class="clock-icon"
+                                        title="Choose a Time"></span></a></span> -->
+
+
+                        </p><input type="hidden" name="initial-updated_on_0" value="2023-03-17"
+                            id="initial-id_updated_on_0"><input type="hidden" name="initial-updated_on_1"
+                            value="04:20:05" id="initial-id_updated_on_1">
+
+
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="submit-row">
+
+
+
+            <input type="submit" value="Save" class="default" name="_save">
+
+
+
+
+
+
+            <input type="submit" value="Save and add another" name="_addanother">
+
+            <input type="submit" value="Save and continue editing
+" name="_continue">
+
+
+
+
+        </div>
+
+
+
+        <script type="text/javascript" id="django-admin-form-add-constants" src="/static/admin/js/change_form.js"
+            data-model-name="employee">
+            </script>
+
+
+
+
+        <script id="django-admin-prepopulated-fields-constants" src="/static/admin/js/prepopulate_init.js"
+            data-prepopulated-fields="[]">
+            </script>
+
+
+
+    </form>
+</div>
+{% endblock %}
+

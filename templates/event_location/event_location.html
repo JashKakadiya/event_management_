@@ -1,0 +1,228 @@
+{% extends 'adminlte/base.html' %}
+
+{% block content %}
+
+<div id="content-main" class="container-fluid">
+    
+    
+    
+    <div class="row">
+        <div class="col-md-12">
+            <form action="" method="post" id="eventlocation_form" novalidate=""><input type="hidden" name="csrfmiddlewaretoken" value="fvAcnZmKOncnGWifFW8GN9IpfSxFrKdTkNR1EFUKnlTISwyKx2UIE3Av2C78eZ4j">
+
+                
+                
+                
+                
+
+                
+                
+                <div class="card card-info">
+    <div class="card-header bg-primary">
+        <h3 class="card-title"></h3>
+        
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+            </button>
+          </div>
+    </div>
+    <div class="card-body">
+        
+        <div class="form-group row form-row field-event_id">
+            
+            
+            <label for="event_id" class="col-sm-2 col-form-label"><label class="required" for="id_event_id">Event id:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="number" name="event_id" class="vIntegerField" required="" id="id_event_id">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-title">
+            
+            
+            <label for="title" class="col-sm-2 col-form-label"><label class="required" for="id_title">Title:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="text" name="title" class="vTextField" maxlength="50" required="" id="id_title">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-street_detail">
+            
+            
+            <label for="street_detail" class="col-sm-2 col-form-label"><label class="required" for="id_street_detail">Street detail:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="text" name="street_detail" class="vTextField" maxlength="50" required="" id="id_street_detail">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-city">
+            
+            
+            <label for="city" class="col-sm-2 col-form-label"><label class="required" for="id_city">City:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="text" name="city" class="vTextField" maxlength="50" required="" id="id_city">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-state">
+            
+            
+            <label for="state" class="col-sm-2 col-form-label"><label class="required" for="id_state">State:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="text" name="state" class="vTextField" maxlength="50" required="" id="id_state">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-country">
+            
+            
+            <label for="country" class="col-sm-2 col-form-label"><label class="required" for="id_country">Country:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="text" name="country" class="vTextField" maxlength="50" required="" id="id_country">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-zipcode">
+            
+            
+            <label for="zipcode" class="col-sm-2 col-form-label"><label class="required" for="id_zipcode">Zipcode:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="number" name="zipcode" class="vIntegerField" required="" id="id_zipcode">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+        <div class="form-group row form-row field-location_link">
+            
+            
+            <label for="location_link" class="col-sm-2 col-form-label"><label class="required" for="id_location_link">Location link:</label></label>
+            <div class="col-sm-10">
+                
+
+                
+                <input type="text" name="location_link" class="vTextField" maxlength="200" required="" id="id_location_link">
+                
+                
+                
+            </div>
+
+
+            
+        </div>
+        
+    </div>
+</div>
+                
+                
+
+                
+
+                
+                
+                
+
+                
+
+                
+<div class="submit-row">
+
+
+
+<input type="submit" value="Save" class="default" name="_save">
+
+
+
+
+
+
+<input type="submit" value="Save and add another" name="_addanother">
+
+<input type="submit" value="Save and continue editing
+" name="_continue">
+
+
+
+
+</div>
+
+
+                
+                <script type="text/javascript" id="django-admin-form-add-constants" src="/static/admin/js/change_form.js" data-model-name="eventlocation">
+                    </script>
+                
+
+                
+                
+<script id="django-admin-prepopulated-fields-constants" src="/static/admin/js/prepopulate_init.js" data-prepopulated-fields="[]">
+</script>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
