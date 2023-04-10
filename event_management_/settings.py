@@ -33,14 +33,16 @@ SECRET_KEY = "django-insecure-#ga9(0*px6(8pc=1j#my24jh0v@aqc0m#85&*22bk75r#5ml)q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*','https://5e9e-117-217-127-105.in.ngrok.io/']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+
     "adminlte3",
     "adminlte3_theme",
+    "django_cron",
     "event_management_application.apps.EventManagementApplicationConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -48,11 +50,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "compressor",
    
 ]
 FAKER_LOCALE = None   
 FAKER_PROVIDERS = None  
 MIDDLEWARE = [
+    "django.middleware.gzip.GZipMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -75,6 +79,15 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "event_management_application.systemconfig.get_host_companyName",
+                "event_management_application.systemconfig.get_host_companyPhone",
+                "event_management_application.systemconfig.get_host_CompanyLogo",
+                "event_management_application.systemconfig.get_host_Currency",
+                "event_management_application.systemconfig.get_host_companyAddress_html",
+                "event_management_application.systemconfig.get_host_companyEmail_html",
+                "event_management_application.systemconfig.get_host_companyLandline_html",
+                "event_management_application.systemconfig.get_host_website_html",
+
             ],
         },
     },
@@ -127,10 +140,47 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+# STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "static"
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
 # STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+APPEND_SLASH=False
+
+RAZOR_KEY_ID = env("RAZOR_KEY_ID")
+RAZOR_KEY_SECRET = env("RAZOR_KEY_SECRET")
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'student.gec416@gmail.com'
+EMAIL_HOST_PASSWORD = 'ceabwnkbmslawcib'
+MEDIA_URL = '/'
+MEDIA_ROOT = BASE_DIR / ''
+
+
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.CSSMinFilter',
+]
+COMPRESS_JS_FILTERS = [
+    'compressor.filters.jsmin.JSMinFilter',
+]
+COMPRESS_STORAGE = 'compressor.storage.GzipCompressorFileStorage'
+
+CRON_CLASSES = [
+    'event_management_application.cron.DailyEmail',
+]

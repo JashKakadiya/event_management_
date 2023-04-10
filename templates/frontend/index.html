@@ -1,0 +1,166 @@
+{% extends 'frontend/base.html' %}
+
+{% load compress %}
+
+{% block content %}
+
+{% block popup %}
+<div class="overlap_box">
+  <div class="popup_button">
+    <div class="outer">
+      <div class="inner">
+        <label>
+          <input style="display: block;
+                          background: none;
+                          height: 20px;
+                          top: 0%;
+                          left: 7%;
+                          position: absolute; border: none;"type="button" value="close" onclick="close_popup()">
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="popup_image" style="padding-left: 70px;">
+    <img src="static/images/dummy_img.jpg" alt="">
+  </div>
+  <div class="text-black popup_details">
+  </div>
+  <div>
+  </div>
+</div>
+{% endblock popup %}
+
+{% for i in event_item %}
+<div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+  <div class="card text-white card-has-bg click-col" style="background-image:url({{i.Image}});">
+    <img class="card-img d-none" src="static/images/dummy_img.jpg"
+      alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
+    <div class="card-img-overlay d-flex flex-column">
+      <div class="card-body">
+
+        <h4 class="card-title mt-0 "><input class="text-white" type="button" value='{{i.name}}'
+            style="border: none; background: none;" onclick="popup_show('{{i.event_id}}')"></h4>
+        <small><i class="far fa-clock"></i>{{ i.Event_from }}</small>
+      </div>
+      <div class="card-footer">
+        <div class="media">
+          <div class="media-body">
+            <h6 class="my-0 text-white d-block">{{ i.location_id.title }}</h6>
+            <small></small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endfor %}
+{% endblock %}
+
+{% block script %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+ 
+<script>
+
+
+  function close_popup() {
+    document.querySelector('.overlap_box').style.display = 'none';
+  }
+
+  function tickets_go(event_id, has_tickets) {
+    console.log(event_id, has_tickets)
+    if (localStorage.getItem('event_id') != null) {
+      localStorage.removeItem('event_id');
+    }
+    if (has_tickets == false) {
+      localStorage.setItem('event_type', 'free');
+    }else{
+      localStorage.setItem('event_type', 'paid');
+    }
+    localStorage.setItem('event_id', event_id);
+    window.location.href = `/tickets/`;
+   
+  }
+
+  function popup_show(event_id) {
+    document.querySelector('.overlap_box').style.display = 'block';
+    const $popupImage = $('.popup_image');
+    const $popupDetails = $('.popup_details');
+
+    $.ajax({
+      url: `/popup_data/${event_id}`,
+      type: 'GET',
+
+      success: function (data) {
+
+        for (var i = 0; i < data.event_item.length; i++) {
+          if (data.event_item[i].event_id == event_id) {
+            $popupImage.html(`<img src="${data.event_item[i].Image}" alt="">`);
+            $popupDetails.html(`
+              <h3>${data.event_item[i].name}</h3>
+              <p></p>
+              <h6>${Date(data.event_item[i].Event_from)}</h6>
+              <p></p>
+              <h6>${data.event_location[i].title}</h6>
+              <p></p>
+              <h6>${data.event_location[i].address}</h6>
+              <p></p>
+              <br>
+              <a class="button" onclick="tickets_go(${data.event_item[i].event_id},${data.event_item[i].has_tickets})">Let's get fun</a> 
+              `);
+          }
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.error(`Error: ${textStatus} - ${errorThrown}`);
+      }
+    });
+  }
+
+  contact_name = document.querySelector('#contact_name');
+  contact_email = document.querySelector('#contact_email');
+  contact_message = document.querySelector('#contact_message');
+  contact_subject = document.querySelector('#contact_subject');
+  contact_submit = document.querySelector('#contact_submit');
+  contact_phone = document.querySelector('#contact_phone');
+
+  document.querySelector('#contact_submit').addEventListener('click', function () {
+    if (contact_name.value == '' || contact_email.value == '' || contact_message.value == '' || contact_subject.value == '') {
+      alert('Please fill all the fields');
+    } else {
+      $.ajax({
+        url: '/contact_us/',
+        type: 'POST',
+        data: {
+          'contact_name': contact_name.value,
+          'contact_email': contact_email.value,
+          'contact_message': contact_message.value,
+          'contact_subject': contact_subject.value,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function (data) {
+          alert('Your message has been sent');
+          contact_name.value = '';
+          contact_email.value = '';
+          contact_message.value = '';
+          contact_subject.value = '';
+          contact_phone.value = '';
+
+          
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error(`Error: ${textStatus} - ${errorThrown}`);
+        }
+      });
+    }
+  });
+
+</script>
+
+{% endblock script %}
+
+{% block welcome %}
+<nav><h1 class="logo mb-5">Book your tickets ....</h1></nav>
+{% endblock welcome %}

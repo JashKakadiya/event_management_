@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{company_name}}</title>
+    <style>
+      body{
+
+background-repeat: no-repeat;
+background-color: rgb(210, 207, 207);
+}
+td,th{
+/* border: 1px solid rgb(236, 27, 27); */
+padding-left: 30px;
+}
+    </style>
+</head>
+<body>
+    <div style=" background-color: rgb(210, 207, 207);">
+        <table >
+            <tr>
+                <th style="text-align: left; padding-left: 30px;"><h2>{Company logo}</h2></th>
+                <th><h3>Booking id: {}</h3></th>
+            </tr>
+            <tr>
+                <td colspan="2"><strong>
+                    <span><h2>Hey {} , Your booking is confirmed.</h2></span>
+                </strong>
+            <h3>
+                    Collect your tickets at the venue.</td>
+                </h3>
+            </tr>
+            <tr>
+                <td  style="text-align: left;"><h2>{Title of the even}</h2></td>
+                <td style="font-size: larger; align-items: left; padding-left: 50px;"><strong>Vanue :- </strong><a href="location">Directions</a></td>
+                
+            </tr>
+            <tr>
+                <td rowspan="2" style="align-items: left; padding-left: 50px;"><img style="height: 350px; width: 330px; border-radius: 20px;" src="/event_management_/static/uploads/images/parsa-eJ5k9CFIHUI-unsplash.jpg" alt=""></td>
+                <td style="align-items: left; padding-left: 50px;"><h3><strong>Address :- </strong></h3><p>{Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum repudiandae odio quisquam fuga excepturi veritatis amet consequuntur quis sunt! Possimus id voluptatibus qui doloribus!}</p></td>
+                
+            </tr>
+            <tr>
+                <td style="align-items: left; padding-left: 50px;"colspan="2"><h3><strong>Time :-  </strong> {10:00 AM}</h3></td>
+            </tr>
+            <table style="width: 100%; margin-top: 30px; padding: 30px;">
+                <tr>
+                    <th style="text-align: center;">Category</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center; background-color: gray; height: 50px; border-radius: 20px;width: 200px; font-size: 25px;">vip</th>
+                    <th style="text-align: center; background-color: gray; border-radius: 20px;">3</th>
+                    <th  style="text-align: center; background-color: gray; border-radius: 20px; width: 200px;">Rs. 3000</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style="text-align: center;"><img style="width: 200px; height: 200px;" src="/event_management_/event_management_application/media/pay_LYz2DHPuMg8U8D.png" alt=""></td>
+                    <td></td>
+                </tr>
+            </table>
+            <table style="width: 100%; padding: 30px;">
+                <tr>
+                    <th style="text-align: left; border-top: 1px solid black; border-bottom: 1px solid black;"><strong><h3>Total Amount Paid</h3></strong></th>
+                    <th style="text-align: end; border-top: 1px solid black; border-bottom: 1px solid black;"><strong><h3>Rs. {}</h3></strong></th>
+                    
+                </tr>
+                <tr>
+                    <td style="color: gray;"><span>Price</span></td>
+                    <td style="text-align: end; color: gray;"><span>Rs. {}</span></td>
+                </tr>
+                <tr>
+                    <td style="color: gray;"><span>Tax</span></td>
+                    <td style="text-align: end; color: gray;"><span>Rs. {}</span></td>
+                </tr>
+            </table>
+        </table>
+    </div>
+   
+    
+ 
+</body>
+</html>

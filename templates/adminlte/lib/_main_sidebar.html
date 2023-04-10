@@ -35,8 +35,9 @@
                 <li class="nav-header">{% block nav_heading %}MAIN NAVIGATION{% endblock %}</li>
 
             
-
-                <li class="nav-item has-tree-view ">
+                {% block nav_links %} 
+                {% endblock %}
+                {% comment %} <li class="nav-item has-tree-view ">
                     <a href="" class="nav-link">
                         <i class="nav-icon fas fa-object-group"></i>
                         <p>Event</p>
@@ -142,7 +143,7 @@
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Event Location</p>
                     </a>
-                </li>
+                </li> {% endcomment %}
 
 
              

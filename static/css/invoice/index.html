@@ -1,0 +1,22 @@
+{% extends 'adminlte/base.html' %}
+<!-- Set title of app -->
+{% block title %}Home page{% endblock %}
+
+{% block content %}
+
+
+
+<div class="wlcm-main">
+  {% comment %} <img class="wlcm-img" src="static/images/lee-blanchflower-1dW1vEJLlCQ-unsplash.jpg" alt="event"> {% endcomment %}
+  <div class="wlcm-text">
+    <h1>Welcome to event Management</h1>
+<br>
+  <h2>please go to <a href="admin/event_management_application/event/add/"> "Here" </a> To view the form</h2>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block external_link %}
+<link rel="stylesheet" href="static/css/style.css">
+{% endblock %}

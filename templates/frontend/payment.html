@@ -1,0 +1,98 @@
+{% extends 'frontend/base.html' %}
+
+{% block extra_style %}
+
+<style>
+
+
+
+  .navMenu {
+    position: absolute;
+    top: 5%;
+    left: 20%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .navMenu a {
+    color: #171716;
+    text-decoration: none;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    display: inline-block;
+    width: 111px;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .navMenu a:hover {
+    color: #fddb3a;
+  }
+
+  .navMenu .dot {
+    width: 6px;
+    height: 6px;
+    background: #fddb3a;
+    border-radius: 50%;
+    opacity: 0;
+    -webkit-transform: translateX(30px);
+    transform: translateX(30px);
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .navMenu a:nth-child(1):hover~.dot {
+    -webkit-transform: translateX(30px);
+    transform: translateX(30px);
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    opacity: 1;
+  }
+
+  .navMenu a:nth-child(2):hover~.dot {
+    -webkit-transform: translateX(160px);
+    transform: translateX(160px);
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    opacity: 1;
+  }
+
+  .navMenu a:nth-child(3):hover~.dot {
+    -webkit-transform: translateX(280px);
+    transform: translateX(280px);
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    opacity: 1;
+  }
+
+  .navMenu a:nth-child(4):hover~.dot {
+    -webkit-transform: translateX(285px);
+    transform: translateX(285px);
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    opacity: 1;
+  }
+
+  </style>
+
+{% endblock %}
+
+{% block content %}
+<div class="payment_main">
+<h1 class="text-center">{{event_name}}</h1>
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+    if(localStorage.getItem('event_id') == null){
+        window.location.href = "/";
+    }
+    get_event = localStorage.getItem('event_id');
+</script>
+
+{% endblock script %}

@@ -8,6 +8,19 @@ django = "*"
 environ = "*"
 mysqlclient = "*"
 django-adminlte3 = "*"
+razorpay = "*"
+localstoragepy = "*"
+pdfkit = "*"
+wkhtmltopdf = "*"
+stripe = "*"
+django-payments = {extras = ["stripe"], version = "*"}
+qrcode = "*"
+pillow = "*"
+pip = "*"
+install = "*"
+pypdf2 = "*"
+django-compressor = "*"
+django-cron = "*"
 
 [dev-packages]
 

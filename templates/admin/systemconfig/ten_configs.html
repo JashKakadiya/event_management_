@@ -1,0 +1,33 @@
+{% extends "admin/change_form.html" %}
+
+{% block content %}
+  <div class="add-form">
+    <form enctype="multipart/form-data" action="/admin/event_management_application/systemconfig/" method="post" novalidate>{% csrf_token %}
+      <fieldset>
+        <h2>Add System Configuration</h2>
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% for field in form %}
+          <div class="form-group{% if field.errors %} has-error{% endif %}">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.help_text %}
+              <p class="help">{{ field.help_text }}</p>
+            {% endif %}
+            {% for error in field.errors %}
+              <p class="help error">{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </fieldset>
+      <div class="submit-row">
+        <input type="submit" value="Save" class="default" name="_save">
+      </div>
+    </form>
+  </div>
+{% endblock %}
