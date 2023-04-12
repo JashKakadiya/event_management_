@@ -31,6 +31,12 @@
 {% endblock popup %}
 
 {% for i in event_item %}
+{% if i.is_deleted %}
+
+
+
+
+{% else %}
 <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
   <div class="card text-white card-has-bg click-col" style="background-image:url({{i.Image}});">
     <img class="card-img d-none" src="static/images/dummy_img.jpg"
@@ -40,7 +46,9 @@
 
         <h4 class="card-title mt-0 "><input class="text-white" type="button" value='{{i.name}}'
             style="border: none; background: none;" onclick="popup_show('{{i.event_id}}')"></h4>
-        <small><i class="far fa-clock"></i>{{ i.Event_from }}</small>
+        <small><i class="far fa-clock"></i>{{ i.Event_from }}</small> <br>
+        <small><i class="far fa-clock"></i>To</small>
+        <small><i class="far fa-clock"></i>{{ i.Event_to }}</small>
       </div>
       <div class="card-footer">
         <div class="media">
@@ -53,6 +61,7 @@
     </div>
   </div>
 </div>
+{% endif %}
 
 
 {% endfor %}
@@ -119,44 +128,7 @@
     });
   }
 
-  contact_name = document.querySelector('#contact_name');
-  contact_email = document.querySelector('#contact_email');
-  contact_message = document.querySelector('#contact_message');
-  contact_subject = document.querySelector('#contact_subject');
-  contact_submit = document.querySelector('#contact_submit');
-  contact_phone = document.querySelector('#contact_phone');
-
-  document.querySelector('#contact_submit').addEventListener('click', function () {
-    if (contact_name.value == '' || contact_email.value == '' || contact_message.value == '' || contact_subject.value == '') {
-      alert('Please fill all the fields');
-    } else {
-      $.ajax({
-        url: '/contact_us/',
-        type: 'POST',
-        data: {
-          'contact_name': contact_name.value,
-          'contact_email': contact_email.value,
-          'contact_message': contact_message.value,
-          'contact_subject': contact_subject.value,
-          'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        success: function (data) {
-          alert('Your message has been sent');
-          contact_name.value = '';
-          contact_email.value = '';
-          contact_message.value = '';
-          contact_subject.value = '';
-          contact_phone.value = '';
-
-          
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-          console.error(`Error: ${textStatus} - ${errorThrown}`);
-        }
-      });
-    }
-  });
-
+  
 </script>
 
 {% endblock script %}

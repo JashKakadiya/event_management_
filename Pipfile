@@ -21,6 +21,9 @@ install = "*"
 pypdf2 = "*"
 django-compressor = "*"
 django-cron = "*"
+django-crontab = "*"
+mysql = "*"
+"mysql.connector" = "*"
 
 [dev-packages]
 

@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
     "adminlte3",
     "adminlte3_theme",
-    "django_cron",
+    "django_crontab",
     "event_management_application.apps.EventManagementApplicationConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -129,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Kolkata"
 
 USE_I18N = True
 
@@ -140,7 +140,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-# STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "static"
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -181,6 +180,7 @@ COMPRESS_JS_FILTERS = [
 ]
 COMPRESS_STORAGE = 'compressor.storage.GzipCompressorFileStorage'
 
-CRON_CLASSES = [
-    'event_management_application.cron.DailyEmail',
+
+CRONJOBS = [
+    ('* * * * *', 'event_management_application.cron')
 ]

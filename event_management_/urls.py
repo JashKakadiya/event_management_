@@ -14,6 +14,7 @@ urlpatterns = [
     path("freepay/",include("event_management_application.urls")),
     path("success/",include("event_management_application.urls")),
     path("contact_us/",include("event_management_application.urls")),
+    path("event_detail/",include("event_management_application.urls")),
     # path("employee/",include("event_management_application.urls")),
     # path("catagory/",include("event_management_application.urls")),
     # path("event/",include("event_management_application.urls")),

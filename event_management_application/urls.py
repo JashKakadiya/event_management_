@@ -28,5 +28,6 @@ urlpatterns = [
     path('analysis/', views.analysis_view, name='analysis'),
     path('redeemed/', views.redeemed, name='redeemed'),
     path('downloadpdf/', views.download_pdf_file, name='downloadpdf'),
+    path('event_detail/', views.event_detail, name='event_detail'),
 
 ]

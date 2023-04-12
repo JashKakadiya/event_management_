@@ -1,178 +1,263 @@
+body,
+html {
+  height: 100;
+}
 
-  body,
-  html {
-    height: 100;
-  }
+.image {
+  width: 40%;
+  border-radius: 38px;
+}
 
-  .image {
-    width: 40%;
-    border-radius: 38px;
-  }
+.image img.product-image {
+  max-width: 100%;
+}
 
-  .image img.product-image {
-    max-width: 100%;
-  }
+.description {
+  padding-right: 1rem;
+  width: 60%;
+}
 
-  .description {
-    padding-right: 1rem;
-    width: 60%;
-  }
+select {
+  padding: 0.3rem;
+  width: 60px;
+}
 
-  select {
-    padding: 0.3rem;
-    width: 60px;
-  }
+select,
+button,
+input[type="text"] {
+  height: 40px;
+}
 
-  select,
-  button,
-  input[type=text] {
-    height: 40px;
-  }
+button {
+  cursor: pointer;
+  width: 100px;
+  background: none;
+  border: 2px solid #9966cc;
+  border-radius: 4px;
+}
 
-  button {
-    cursor: pointer;
-    width: 100px;
-    background: none;
-    border: 2px solid #9966cc;
-    border-radius: 4px;
-  }
+.quantity-wrapper {
+  align-items: flex-start;
+  flex-flow: row wrap;
+  margin: 1rem 0 0.5rem;
+}
 
-  .quantity-wrapper {
-    align-items: flex-start;
-    flex-flow: row wrap;
-    margin: 1rem 0 0.5rem;
-  }
+select {
+  width: 50px;
+  margin-right: 1rem;
+}
 
-  select {
-    width: 50px;
-    margin-right: 1rem;
-  }
+.bag-product,
+.quantity-wrapper,
+.subtotal,
+.delivery,
+.total,
+.promo-code {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .bag-product,
-  .quantity-wrapper,
-  .subtotal,
-  .delivery,
-  .total,
-  .promo-code {
-    display: flex;
-    justify-content: space-between;
-  }
+.subtotal,
+.delivery,
+input[type="checkbox"],
+.help {
+  margin-bottom: 0.5rem;
+}
 
-  .subtotal,
-  .delivery,
-  input[type=checkbox],
-  .help {
-    margin-bottom: 0.5rem;
-  }
+.total {
+  margin-bottom: 1rem;
+}
 
-  .total {
-    margin-bottom: 1rem;
-  }
+button,
+.change-delivery {
+  color: #9966cc;
+}
 
-  button,
-  .change-delivery {
-    color: #9966cc;
-  }
+input[type="text"],
+.btn-go-checkout {
+  font-size: 1rem;
+}
 
-  input[type=text],
-  .btn-go-checkout {
-    font-size: 1rem;
-  }
+input[type="text"] {
+  width: calc(100% - 100px - 1rem);
+  padding: 0.5rem;
+}
 
-  input[type=text] {
-    width: calc(100% - 100px - 1rem);
-    padding: 0.5rem;
-  }
+.btn-go-checkout {
+  margin-top: 1rem;
+  width: 100%;
+  height: 40px;
+  background: #9966cc;
+  box-shadow: 0 3px 6px 2px gainsboro;
+}
 
-  .btn-go-checkout {
-    margin-top: 1rem;
-    width: 100%;
-    height: 40px;
-    background: #9966cc;
-    box-shadow: 0 3px 6px 2px gainsboro;
-  }
+button {
+  border: none;
+  /* padding: 20px 40px; */
+  font-size: 15px;
+  position: relative;
+  background: transparent;
+  color: #cf1010;
+  text-transform: uppercase;
+  border: 3px solid #0f0f0f;
+  cursor: pointer;
+  transition: all 0.7s;
+  overflow: hidden;
+  border-radius: 100px;
+  margin-top: 25px;
+}
 
-  button {
-    border: none;
-    /* padding: 20px 40px; */
-    font-size: 15px;
-    position: relative;
-    background: transparent;
-    color: #cf1010;
-    text-transform: uppercase;
-    border: 3px solid #0f0f0f;
-    cursor: pointer;
-    transition: all 0.7s;
-    overflow: hidden;
-    border-radius: 100px;
-    margin-top: 25px;
-  }
+button:hover {
+  color: rgb(21, 20, 20);
+}
 
-  button:hover {
-    color: rgb(21, 20, 20);
-  }
+span {
+  transition: all 0.7s;
+  z-index: -1;
+}
 
-  span {
-    transition: all 0.7s;
-    z-index: -1;
-  }
+button .first {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 0;
+  width: 25%;
+  height: 100%;
+  background: #060606;
+}
 
-  button .first {
-    content: "";
-    position: absolute;
-    right: 100%;
-    top: 0;
-    width: 25%;
-    height: 100%;
-    background: #060606;
-  }
+button:hover .first {
+  top: 0;
+  right: 0;
+}
 
-  button:hover .first {
-    top: 0;
-    right: 0;
-  }
+button .second {
+  content: "";
+  position: absolute;
+  left: 25%;
+  top: -100%;
+  height: 100%;
+  width: 25%;
+  background: #070707;
+}
 
-  button .second {
-    content: "";
-    position: absolute;
-    left: 25%;
-    top: -100%;
-    height: 100%;
-    width: 25%;
-    background: #070707;
-  }
+button:hover .second {
+  top: 0;
+  left: 50%;
+}
 
-  button:hover .second {
-    top: 0;
-    left: 50%;
-  }
+button .third {
+  content: "";
+  position: absolute;
+  left: 50%;
+  height: 100%;
+  top: 100%;
+  width: 25%;
+  background: #0c0c0b;
+}
 
-  button .third {
-    content: "";
-    position: absolute;
-    left: 50%;
-    height: 100%;
-    top: 100%;
-    width: 25%;
-    background: #0c0c0b;
-  }
+button:hover .third {
+  top: 0;
+  left: 25%;
+}
 
-  button:hover .third {
-    top: 0;
-    left: 25%;
-  }
+button .fourth {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 0;
+  height: 100%;
+  width: 25%;
+  background: #0f0f0f;
+}
 
-  button .fourth {
-    content: "";
-    position: absolute;
-    left: 100%;
-    top: 0;
-    height: 100%;
-    width: 25%;
-    background: #0f0f0f;
-  }
+button:hover .fourth {
+  top: 0;
+  left: 0;
+}
 
-  button:hover .fourth {
-    top: 0;
-    left: 0;
-  }
+.decrementer {
+  background: rgb(0 0 0);
+  width: 40px;
+  height: 40px;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 30px;
+}
+
+.set_quantity {
+  width: 80px;
+  height: 40px;
+  background: none;
+  margin-left: 20px;
+  border: none;
+}
+
+.incrementer {
+  background: rgb(0 0 0);
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  align-items: center;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 30px;
+}
+
+#user_name {
+  width: 400px;
+  height: 30px;
+  background: none;
+  outline: none;
+  border: 1px solid black;
+  border-radius: 22px;
+  padding-left: 10px;
+}
+
+#phone {
+  width: 400px;
+  background: none;
+  outline: none;
+  border: 1px solid black;
+  border-radius: 22px;
+  padding-left: 55px;
+}
+
+#email {
+  width: 400px;
+  background: none;
+  outline: none;
+  border: 1px solid black;
+  border-radius: 22px;
+  padding-left: 10px;
+}
+
+#spinner-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+#main_img {
+  background-repeat: no-repeat;
+  width: 394px;
+  box-shadow: gray 2px 2px 20px 2px;
+  background-size: cover;
+  outline: none;
+  background-color: black;
+}
+#pay-btn {
+  background: none;
+  width: 83px;
+  height: 35px;
+  border: none;
+  outline: none;
+  color: rgb(42, 84, 222);
+}

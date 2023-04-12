@@ -20,7 +20,7 @@ class EventAdmin(admin.ModelAdmin):
     inlines = [EventlocationInline, SubloationInline]
 
     list_display = ('name', 'Event_from', 'Event_to', 'Image', 'has_tickets', 'total_count',
-                    'total_cost', 'total_price', 'paid_amount', 'pending_amount', 'has_sub_events')
+                    'total_cost', 'total_price', 'paid_amount', 'pending_amount', 'has_sub_events','is_deleted')
     exclude = ('created_on', 'updated_on')
     change_form_template = "admin/custom_change_form.html"
 
@@ -58,36 +58,13 @@ admin.site.register(Employee)
 admin.site.register(Tickets, TicketAdmin)
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('user_name', 'payment_event_id', 'amount', 'status', 'payment_id', 'ticket_count', 'ticket_used', 'updated_on')
+    list_display = ('user_name', 'event_name', 'amount', 'status', 'payment_id', 'ticket_count', 'ticket_used', 'updated_on' , 'email_sent')
 
-# class SystemConfigAdmin(admin.ModelAdmin):
-
-#     add_form_template = 'admin/systemconfig/ten_configs.html'
-#     def get_urls(self):
-#         from django.urls import path
-#         urls = super().get_urls()
-#         custom_urls = [
-#             path('ten_configs/', self.admin_site.admin_view(self.ten_configs_view)),
-#         ]
-#         return custom_urls + urls
-
-#     def ten_configs_view(self, request):
-#         config_list = SystemConfig.objects.order_by('config_key')[:5]
-#         return admin.site.admin_view(
-#             lambda req: self.display_configs(config_list, req)
-#         )(request)
-
-#     def display_configs(self, config_list, request):
-#         context = {
-#             'config_list': config_list,
-
-#         }
-#         return render(request, 'admin/systemconfig/ten_configs.html', context)
 
 
 @admin.register(SystemConfigs)
 class SystemConfigsAdmin(admin.ModelAdmin):
-    fieldsets = (
+    fieldsets = ( 
         ("Company details", {
             'fields': ('system_config_COMPANY_TITLE', 'system_config_COMPANY_EMAIL', 'system_config_COMPANY_PHONE', 'system_config_COMPANY_ADDRESS','system_config_COMPANY_LOGO','system_config_COMPANY_LANDLINE','system_config_HOST_WEBSITE')
         }),

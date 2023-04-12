@@ -50,7 +50,7 @@ td,th{{
     <div>
         <table>
             <tr>
-                <th style="text-align: left; padding-left: 30px;"><h2>{company_logo['company_name']}</h2></th>
+                <th style="text-align: left; padding-left: 30px;"><img style="height: 70px; width: 70px;" src="{(os.path.abspath(os.path.dirname('static/logo/logo.png/')))}" alt=""><h2>{company_logo['company_name']}</h2></th>
                 <th style="text-align: left; padding-right: 30px;"><h3>Booking id: {data.payment_id}</h3></th>
             </tr>
             <tr>
@@ -110,7 +110,7 @@ td,th{{
     </div>
 </body>
 </html>    
-''', 'invoice.pdf', options={"enable-local-file-access": ""})
+''', os.path.abspath(os.path.dirname('static/invoices/'))+f'/{data.payment_id}.pdf', options={"enable-local-file-access": ""})
     end = time.time()   
     print("post", end - start)
 

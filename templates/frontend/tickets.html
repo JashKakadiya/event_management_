@@ -7,23 +7,117 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% compress css %}
 <link rel="stylesheet" href="/static/css/tickets/tickets.css">
+
+
+{% endcompress %}
+
+<style>
+  #snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+  }
+
+
+  #snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+
+
+  @-webkit-keyframes fadein {
+    from {
+      bottom: 0;
+      opacity: 0;
+    }
+
+    to {
+      bottom: 30px;
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadein {
+    from {
+      bottom: 0;
+      opacity: 0;
+    }
+
+    to {
+      bottom: 30px;
+      opacity: 1;
+    }
+  }
+
+  @-webkit-keyframes fadeout {
+    from {
+      bottom: 30px;
+      opacity: 1;
+    }
+
+    to {
+      bottom: 0;
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadeout {
+    from {
+      bottom: 30px;
+      opacity: 1;
+    }
+
+    to {
+      bottom: 0;
+      opacity: 0;
+    }
+  }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   if (localStorage.getItem('event_id') == null) {
-        window.location.href = '/'
+    window.location.href = '/'
+  }
+  $(document).ready(function () {
+    var event_id = localStorage.getItem('event_id');
+    $.post('/event_detail/', { event_id: event_id }, function (data) {
+
+      for (var i = 0; i <= data.date_diff; i++) {
+        var date = new Date(data.event_from);
+        date.setDate(date.getDate() + i);
+        $('#date-selector').append('<input style = "margin: 10px;" type="checkbox" name="event_dates" value="' + date.toISOString() + '"> ' + date.toDateString() + '<br>');
+        console.log(date.toISOString());
       }
+    });
+  });
+
 </script>
 
 {% endblock extra_style %}
 {% block extra_section %}
+<div id="snackbar">Some text some message..</div>
+
+
 <section>
   <div class="square_box box_three"></div>
   <div class="square_box box_four"></div>
   <div class="container mt-5">
     <div class="row">
-
       <div class="col-sm-12">
-        <div style="    display: none;
+        <div style="display: none;
         position: fixed;
         top: 11%;
         left: 26%;
@@ -32,7 +126,7 @@
         color: wheat;"
           class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show"
           role="alert" id="error" data-brk-library="component__alert">
-          <button style="    position: absolute;
+          <button style="position: absolute;
           left: 92%;
           top: -31%;
           width: 41px;" type="button" class="close font__size-18" data-dismiss="alert" onclick="close_error()">
@@ -45,19 +139,12 @@
           <strong class="font__weight-semibold">Oh snap!</strong> Change a few things up and try submitting again.
         </div>
       </div>
-
-
     </div>
-
-  </div>
-
-  </div>
   </div>
 </section>
 {% endblock extra_section %}
 {% block content %}
-<div id="spinner-overlay"
-  style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9999;">
+<div id="spinner-overlay">
   <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
     <button class="btn btn-primary" type="button" disabled>
       Loading...
@@ -73,11 +160,7 @@
       <p class="bag-head"><span style="text-transform: uppercase">Your Bag</span> - 1 item</p>
     </div>
     <div class="bag-product">
-      <div style="background-repeat: no-repeat;
-    width: 394px;
-    box-shadow: gray 2px 2px 20px 2px;
-    background-size: cover;
-    outline: none; background-color: black;" class="image">
+      <div class="image" id="main_img">
 
       </div>
       <div class="description">
@@ -89,10 +172,12 @@
             class="event_name">
           <p class="description-text">An easy-to-use dive computer with freedive mode and air integration.</p>
           <p style="margin-bottom: 0.5rem;">book your tickets</p>
-          <!-- <div class="ticket_price" style="display: flex; flex-direction: row;text-align: center; align-content: center;"> -->
+
           <i class="ticket_pricee" style="text-decoration: solid; font-weight: 800;">{{payment_curruncy}}</i>
           <h2 class="ticket_price"></h2>
 
+          <h4 style="margin-top: 20px;">Select Dates</h4>
+          <div style="display: flex; flex-direction: row; padding: 10px;" id="date-selector"></div>
 
           <div class="quantity-wrapper">
             <div style="display: flex; flex-direction: row;">
@@ -103,30 +188,11 @@
                 <option value="VIP">VIP</option>
                 <option value="BASE">BASE</option>
               </select>
+
               <div style="display: flex; flex-direction: row;">
-                <input style="background: rgb(0 0 0);
-                width: 40px;
-                height: 40px;
-                outline: none;
-                border: none;
-                color: white;
-                font-size: 30px;" type="button" class="decrementer" value="-">
-                <input style="    width: 80px;
-                  height: 40px;
-                  background: none;
-                  margin-left: 20px;
-                  border: none;" name="quantity" type="number" class="set_quantity" readonly>
-                <input style="    background: rgb(0 0 0);
-                
-                
-                width: 40px;
-                height: 40px;
-                text-align: center;
-                align-items: center;
-                outline: none;
-                border: none;
-                color: white;
-                font-size: 30px;" type="button" class="incrementer" value="+">
+                <input type="button" class="decrementer" value="-">
+                <input name="quantity" type="number" class="set_quantity" readonly>
+                <input type="button" class="incrementer" value="+">
               </div>
 
             </div>
@@ -138,48 +204,19 @@
             </div>
             <div>
               <p>Enter your name:</p>
-              <input required style="width: 400px;
-              height: 30px;
-            background: none;
-            outline: none;
-            border: 1px solid black;
-            border-radius: 22px; padding-left: 10px;" id="user_name" type="text" name="user_name" /> <br>
+              <input required id="user_name" type="text" name="user_name" /> <br>
               <p>Enter your phone number:</p>
-              <input required style="    width: 400px;
-            background: none;
-            outline: none;
-            border: 1px solid black;
-            border-radius: 22px; padding-left: 55px;" id="phone" type="tel" name="phone" />
+              <input required id="phone" type="tel" name="phone" />
               <p>Enter your email:</p>
-              <input required style="width: 400px;
-            background: none;
-            outline: none;
-            border: 1px solid black;
-            border-radius: 22px; padding-left: 10px;" id="email" type="email" name="email" />
+              <input required id="email" type="email" name="email" />
             </div>
             <div class="tota">
               <!-- <h3 class="total">0</h3> -->
               <input name="total" style="border: none; color: black; font-size: large;" type="hidden" name=""
                 class="total">
             </div>
-            <!-- <button style="
-width: 405px;
-    /* box-shadow: 2px 2px 20px 2px gray; */
-    background: rgb(23, 23, 23);
-    outline: none;
-    border: 1px solid black;
-    border-radius: 22px;
-    padding-left: 55px;
-    margin-top: 30px;
-          " class="btn-go-checkout">
-              <input class="text-white" style="width: 50%; top: 20%; background: none; border: none;" type="button"
-                value="Make Payments" id="pay-btn">
-
-              </button> -->
             <button>
-              <input
-                style="background: none; width: 83px; height: 35px; border: none; outline: none; color: rgb(42, 84, 222);"
-                type="button" value="CheckOut" id="pay-btn">
+              <input type="button" value="CheckOut" id="pay-btn">
               <span class="first"></span>
               <span class="second"></span>
               <span class="third"></span>
@@ -189,311 +226,330 @@ width: 405px;
           <div class="help" style="margin-top: 5px;">
             <p>Need help? Call free {{company_Phone}}</p>
           </div>
-
       </div>
-    </div>
-    <div class="bg"></div>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+      <div class="bg"></div>
 
-    <div class="ticket_show text-black">
-      </form>
-    </div>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-
-    {% endblock %}
+      <div class="ticket_show text-black">
+        </form>
+      </div>
 
 
-    {% block script %}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    
-
-    <script>
-      if (localStorage.getItem('event_type') == 'free') {
-        console.log("no tickets")
-        document.querySelector('.ticket_type').style.display = "none"
-        document.querySelector('.ticket_price').style.display = "none"
-        document.querySelector('.subtotal').style.display = "none"
-        document.querySelector('.ticket_price').style.display = "none"
-        document.querySelector('.ticket_pricee').style.display = "none"
-        // alert("Tickets are Free !!")
-      }
- 
-
-      function close_error() {
-        document.querySelector('#error').style.display = "none"
-
-      }
-
-      const phoneInputField = document.querySelector("#phone");
-      const emailInputField = document.querySelector("#email");
-      const phoneInput = window.intlTelInput(phoneInputField, {
-        utilsScript:
-          "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-      });
+      {% endblock %}
 
 
-      function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== "") {
-          const cookies = document.cookie.split(";");
-          for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.startsWith(`${name}=`)) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
+      {% block script %}
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+      <script>
+        if (localStorage.getItem('event_type') == 'free') {
+          console.log("no tickets")
+          document.querySelector('.ticket_type').style.display = "none"
+          document.querySelector('.ticket_price').style.display = "none"
+          document.querySelector('.subtotal').style.display = "none"
+          document.querySelector('.ticket_price').style.display = "none"
+          document.querySelector('.ticket_pricee').style.display = "none"
+
+        }
+
+
+        function close_error() {
+          document.querySelector('#error').style.display = "none"
+
+        }
+
+        const phoneInputField = document.querySelector("#phone");
+        const emailInputField = document.querySelector("#email");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+          utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+
+        function getCookie(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.startsWith(`${name}=`)) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+              }
             }
           }
+          return cookieValue;
         }
-        return cookieValue;
-      }
 
 
 
-      // initialise razorpay with the options.
+        // initialise razorpay with the options.
 
 
-      // add event listener to the payment button.
+        // add event listener to the payment button.
 
-      document.getElementById("pay-btn").onclick = function (e) {
-        console.log("clicked",localStorage.getItem('event_type'))
-        if (document.querySelector('#email').value && document.querySelector('#email').value.includes('@') && document.querySelector('#email').value.includes('.') && document.querySelector('#phone').value && document.querySelector('#user_name').value && document.querySelector('.set_quantity').value != 0) {
-          if (localStorage.getItem('event_type') == 'free') {
-            const csrftoken = getCookie("csrftoken");
-            $.ajax({
-              url: "/freepay/",
-              type: 'POST',
-              data: {
-                'user_name': document.querySelector('#user_name').value,
-                'event_id': localStorage.getItem('event_id'),
-                'event_name': document.querySelector('.event_name').value,
-                'ticket_count': document.querySelector('.set_quantity').value,
-                'ticket_type': 'none',
-                'event_id': localStorage.getItem('event_id'),
-                'total': 0,
-                'email': emailInputField.value,
-                'phone': parseInt(phoneInputField.value),
-                'csrfmiddlewaretoken': csrftoken,
+        document.getElementById("pay-btn").onclick = function (e) {
+          console.log("clicked", localStorage.getItem('event_type'))
+          if (document.querySelector('#email').value && document.querySelector('#email').value.includes('@') && document.querySelector('#email').value.includes('.') && document.querySelector('#phone').value && document.querySelector('#user_name').value && document.querySelector('.set_quantity').value != 0) {
+            if (localStorage.getItem('event_type') == 'free') {
+              const csrftoken = getCookie("csrftoken");
+              $.ajax({
+                url: "/freepay/",
+                type: 'POST',
+                data: {
+                  'user_name': document.querySelector('#user_name').value,
+                  'event_id': localStorage.getItem('event_id'),
+                  'event_name': document.querySelector('.event_name').value,
+                  'ticket_count': document.querySelector('.set_quantity').value,
+                  'ticket_type': 'none',
+                  'event_id': localStorage.getItem('event_id'),
+                  'total': 0,
+                  'email': emailInputField.value,
+                  'phone': parseInt(phoneInputField.value),
+                  'csrfmiddlewaretoken': csrftoken,
 
-              },
-              success: function (response) {
-                console.log(response)
-                window.location.href = '/success/'
-              },
-            })
-            document.querySelector('#spinner-overlay').style.display = 'block'
-            e.preventDefault();
-          } else {
-            const csrftoken = getCookie("csrftoken");
-            total = document.querySelector('.total')
-            $.ajax({
-              url: "/razorpay/",
-              type: 'POST',
-              data: {
-                'user_name': document.querySelector('#user_name').value,
-                'event_id': localStorage.getItem('event_id'),
-                'event_name': document.querySelector('.event_name').value,
-                'ticket_count': document.querySelector('.set_quantity').value,
-                'ticket_type': document.querySelector('.ticket_type').value,
-                'event_id': localStorage.getItem('event_id'),
-                'total': total.value,
-                'email': emailInputField.value,
-                'phone': parseInt(phoneInputField.value),
-                'csrfmiddlewaretoken': csrftoken,
-              },
-              success: function (response) {
-                console.log(response)
+                },
+                success: function (response) {
+                  console.log(response)
+                  window.location.href = '/success/'
+                },
+              })
+              document.querySelector('#spinner-overlay').style.display = 'block'
+              e.preventDefault();
+            } else {
+              const csrftoken = getCookie("csrftoken");
+              total = document.querySelector('.total')
+              $.ajax({
+                url: "/razorpay/",
+                type: 'POST',
+                data: {
+                  'user_name': document.querySelector('#user_name').value,
+                  'event_id': localStorage.getItem('event_id'),
+                  'event_name': document.querySelector('.event_name').value,
+                  'ticket_count': document.querySelector('.set_quantity').value,
+                  'ticket_type': document.querySelector('.ticket_type').value,
+                  'event_id': localStorage.getItem('event_id'),
+                  'total': total.value,
+                  'email': emailInputField.value,
+                  'phone': parseInt(phoneInputField.value),
+                  'csrfmiddlewaretoken': csrftoken,
+                },
+                success: function (response) {
+                  console.log(response)
 
-                var options = {
-                  key: response.razorpay_merchant_key,
-                  amount: response.razorpay_amount,
-                  currency: response.currency,
-                  name: document.querySelector('.event_name').value,
-                  order_id: response.razorpay_order_id,
-                  callback_url: response.callback_url,
-                  prefill: {
-                    "name": "Enter name",
-                    "email": "name@gmail.com",
-                    "contact": "9999999999"
-                  },
+                  var options = {
+                    key: response.razorpay_merchant_key,
+                    amount: response.razorpay_amount,
+                    currency: response.currency,
+                    name: document.querySelector('.event_name').value,
+                    order_id: response.razorpay_order_id,
+                    callback_url: response.callback_url,
+                    prefill: {
+                      "name": "Enter name",
+                      "email": "name@gmail.com",
+                      "contact": "9999999999"
+                    },
+                  }
+
+                  var rzp1 = new Razorpay(options);
+
+                  rzp1.open();
+                  document.querySelector('#spinner-overlay').style.display = 'block'
+
                 }
+              })
+              e.preventDefault();
 
-                var rzp1 = new Razorpay(options);
+            }
+          }
+          else {
+            document.querySelector('.toast-notification').style.display = 'block';
+          }
 
-                rzp1.open();
-                document.querySelector('#spinner-overlay').style.display = 'block'
+
+        }
+
+
+
+
+        $input_box = $('.set_quantity')
+        $incrementer = $('.incrementer')
+        $ticket_price = $('.ticket_price')
+        $decrementer = $('.decrementer')
+
+        document.querySelector(".set_quantity").value = 1
+
+
+
+        $ticket_div = $('.ticket_show')
+        get_ticket = localStorage.getItem('event_id')
+        console.log(get_ticket)
+
+        $.ajax({
+          url: `/popup_data/${localStorage.getItem('event_id')}`,
+          type: 'GET',
+          success: function (response) {
+            event_id = 0
+            for (var i = 0; i < response.event_item.length; i++) {
+              console.log("id", response.event_item[i].event_id)
+              if (response.event_item[i].event_id == get_ticket) {
+                var event_id = i
+              }
+            }
+
+            if (localStorage.getItem('event_type') != 'free') {
+              count_base = response.tickets_item[0].ticket_count
+              count_vip = response.tickets_item[1].ticket_count
+              document.querySelector('.ticket_price').innerHTML = response.tickets_item[1].ticket_price + "-" + response.tickets_item[0].ticket_price
+            }
+
+            var persentage = (response.event_item[event_id].remain_tickets / response.event_item[event_id].total_count) * 100
+            console.log("persentage", persentage)
+            if (persentage <= 50 && persentage > 20) {
+              var x = document.getElementById("snackbar");
+              x.className = "show";
+              x.style.backgroundColor = 'green'
+              x.innerHTML = "Fast Filling , Hurry Up !"
+              setTimeout(function () { x.className = x.className.replace("show", ""); }, 4000);
+            } else if (persentage <= 20 && persentage > 10) {
+              var x = document.getElementById("snackbar");
+              x.className = "show";
+              x.style.backgroundColor = 'orange'
+              x.innerHTML = "Only Few Tickets Left !"
+              setTimeout(function () { x.className = x.className.replace("show", ""); }, 4000);
+            } else {
+              var x = document.getElementById("snackbar");
+              x.className = "show";
+              x.style.backgroundColor = 'black'
+              x.innerHTML = "Book now !"
+              setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            }
+
+
+            $decrementer.click(function () {
+              if (document.querySelector(".set_quantity").value > 1) {
+                $input_box.val(parseInt($input_box.val()) - 1)
+
+                if (document.querySelector('.ticket_type').value == 'BASE') {
+                  console.log(response.tickets_item)
+                  // response.tickets_item[1].ticket_count -= parseInt($input_box.val())
+                  if (response.tickets_item[0].ticket_count < count_base) {
+
+                    response.tickets_item[0].ticket_count += 1
+                    console.log(response.tickets_item[0].ticket_count)
+                  }
+                  else {
+                    alert("Tickets are not available")
+                    document.querySelector(".set_quantity").value = count_base
+                  }
+                }
+                if (document.querySelector('.ticket_type').value == 'VIP') {
+                  // response.tickets_item[1].ticket_count -= parseInt($input_box.val())
+                  if (response.tickets_item[1].ticket_count < count_vip) {
+
+                    response.tickets_item[1].ticket_count += 1
+                    console.log(response.tickets_item[1].ticket_count)
+                  }
+                  else {
+                    alert("Tickets are not available")
+                    document.querySelector(".set_quantity").value = count_vip
+                  }
+                } else {
+
+                  response.event_item[event_id].remain_tickets += 1
+                  console.log(response.event_item[event_id].remain_tickets)
+                }
+                document.querySelector('.total').value = document.querySelector(".set_quantity").value * document.querySelector('.ticket_price').innerHTML
+                document.querySelector('.subtotal_price').innerHTML = document.querySelector(".set_quantity").value * document.querySelector('.ticket_price').innerHTML
 
               }
             })
-            e.preventDefault();
 
-          }
-        }
-        else {
-          document.querySelector('#error').style.display = 'block'
-        }
-
-
-      }
-
-
-
-
-      $input_box = $('.set_quantity')
-      $incrementer = $('.incrementer')
-      $ticket_price = $('.ticket_price')
-      $decrementer = $('.decrementer')
-
-      document.querySelector(".set_quantity").value = 1
-
-
-
-      $ticket_div = $('.ticket_show')
-      get_ticket = localStorage.getItem('event_id')
-      console.log(get_ticket)
-
-      $.ajax({
-        url: `/popup_data/${localStorage.getItem('event_id')}`,
-        type: 'GET',
-        success: function (response) {
-          event_id = 0
-          for (var i = 0; i < response.event_item.length; i++) {
-            console.log("id", response.event_item[i].event_id)
-            if (response.event_item[i].event_id == get_ticket) {
-              var event_id = i
-            }
-          }
-
-
-          if (localStorage.getItem('event_type') != 'free') {
-            count_base = response.tickets_item[0].ticket_count
-            count_vip = response.tickets_item[1].ticket_count
-            document.querySelector('.ticket_price').innerHTML = response.tickets_item[1].ticket_price + "-" + response.tickets_item[0].ticket_price
-          }
-
-
-          $decrementer.click(function () {
-            if (document.querySelector(".set_quantity").value > 1) {
-              $input_box.val(parseInt($input_box.val()) - 1)
-
-              if (document.querySelector('.ticket_type').value == 'BASE') {
-                console.log(response.tickets_item)
-                // response.tickets_item[1].ticket_count -= parseInt($input_box.val())
-                if (response.tickets_item[0].ticket_count < count_base) {
-
-                  response.tickets_item[0].ticket_count += 1
-                  console.log(response.tickets_item[0].ticket_count)
-                }
-                else {
-                  alert("Tickets are not available")
-                  document.querySelector(".set_quantity").value = count_base
-                }
-              }
-              if (document.querySelector('.ticket_type').value == 'VIP') {
-                // response.tickets_item[1].ticket_count -= parseInt($input_box.val())
-                if (response.tickets_item[1].ticket_count < count_vip) {
-
-                  response.tickets_item[1].ticket_count += 1
-                  console.log(response.tickets_item[1].ticket_count)
-                }
-                else {
-                  alert("Tickets are not available")
-                  document.querySelector(".set_quantity").value = count_vip
-                }
+            $incrementer.click(function () {
+              $input_box.val(parseInt($input_box.val()) + 1)
+              if (response.event_item[event_id].remain_tickets <= 0 && localStorage.getItem('event_type') != 'free') {
+                alert("Tickets are not available")
               } else {
+                console.log("remain_tickets", response.event_item[event_id].remain_tickets)
+                if (document.querySelector('.ticket_type').value == 'BASE') {
+                  console.log(response.tickets_item)
+                  // response.tickets_item[1].ticket_count -= parseInt($input_box.val())
+                  if (response.tickets_item[0].ticket_count) {
 
-                response.event_item[event_id].total_count += 1
-                console.log(response.event_item[event_id].total_count)
+                    response.tickets_item[0].ticket_count -= 1
+                    console.log(response.tickets_item[0].ticket_count)
+                  }
+                  else {
+                    alert("Tickets are not available")
+                    document.querySelector(".set_quantity").value = count_base
+                  }
+                }
+                if (document.querySelector('.ticket_type').value == 'VIP') {
+                  // response.tickets_item[1].ticket_count -= parseInt($input_box.val())
+                  if (response.tickets_item[1].ticket_count) {
+
+                    response.tickets_item[1].ticket_count -= 1
+                    console.log(response.tickets_item[1].ticket_count)
+                  }
+                  else {
+                    alert("Tickets are not available")
+                    document.querySelector(".set_quantity").value = count_vip
+                  }
+                }
+                else {
+
+                  response.event_item[event_id].remain_tickets -= 1
+                  console.log(response.event_item[event_id].remain_tickets)
+                }
               }
+
               document.querySelector('.total').value = document.querySelector(".set_quantity").value * document.querySelector('.ticket_price').innerHTML
               document.querySelector('.subtotal_price').innerHTML = document.querySelector(".set_quantity").value * document.querySelector('.ticket_price').innerHTML
 
-            }
-          })
+            })
+            document.querySelector('.event_name').value = response.event_item[event_id].name
+            document.querySelector('.event_name_').innerHTML = response.event_item[event_id].name
+            console.log("...........", response.event_item[event_id].event_name)
+            document.querySelector('.image').style.backgroundImage = "url(/" + response.event_item[event_id].Image + ")"
+            if (response.event_item[event_id].has_tickets == true) {
 
-          $incrementer.click(function () {
-            $input_box.val(parseInt($input_box.val()) + 1)
-            if (response.event_item[event_id].total_count <= 0 && localStorage.getItem('event_type') != 'free') {
-              alert("Tickets are not available")
+              document.querySelector('.ticket_type').addEventListener('change', function () {
+                $('.ticket_price').html(0)
+                $('.total').html(0)
+                $('.subtotal_price').html(0)
+                $('.set_quantity').val(1)
+                // print(response.tickets_item)
+                if (document.querySelector('.ticket_type').value == response.tickets_item[0].ticket_type) {
+                  console.log(response.tickets_item)
+                  document.querySelector('.ticket_price').innerHTML = response.tickets_item[0].ticket_price
+                }
+                else if ((document.querySelector('.ticket_type').value == response.tickets_item[1].ticket_type)) {
+                  document.querySelector('.ticket_price').innerHTML = response.tickets_item[1].ticket_price
+                } else {
+                  document.querySelector('.ticket_price').innerHTML = response.tickets_item[1].ticket_price + "-" + response.tickets_item[0].ticket_price
+                }
+
+
+
+              })
+
+
             } else {
-              console.log("remain_tickets", response.event_item[event_id].total_count)
-              if (document.querySelector('.ticket_type').value == 'BASE') {
-                console.log(response.tickets_item)
-                // response.tickets_item[1].ticket_count -= parseInt($input_box.val())
-                if (response.tickets_item[0].ticket_count) {
-
-                  response.tickets_item[0].ticket_count -= 1
-                  console.log(response.tickets_item[0].ticket_count)
-                }
-                else {
-                  alert("Tickets are not available")
-                  document.querySelector(".set_quantity").value = count_base
-                }
-              }
-              if (document.querySelector('.ticket_type').value == 'VIP') {
-                // response.tickets_item[1].ticket_count -= parseInt($input_box.val())
-                if (response.tickets_item[1].ticket_count) {
-
-                  response.tickets_item[1].ticket_count -= 1
-                  console.log(response.tickets_item[1].ticket_count)
-                }
-                else {
-                  alert("Tickets are not available")
-                  document.querySelector(".set_quantity").value = count_vip
-                }
-              }
-              else {
-
-                response.event_item[event_id].total_count -= 1
-                console.log(response.event_item[event_id].total_count)
-              }
-            }
-
-            document.querySelector('.total').value = document.querySelector(".set_quantity").value * document.querySelector('.ticket_price').innerHTML
-            document.querySelector('.subtotal_price').innerHTML = document.querySelector(".set_quantity").value * document.querySelector('.ticket_price').innerHTML
-
-          })
-          document.querySelector('.event_name').value = response.event_item[event_id].name
-          document.querySelector('.event_name_').innerHTML = response.event_item[event_id].name
-          console.log("...........", response.event_item[event_id].event_name)
-          document.querySelector('.image').style.backgroundImage = "url(/" + response.event_item[event_id].Image + ")"
-          if (response.event_item[event_id].has_tickets == true) {
-
-            document.querySelector('.ticket_type').addEventListener('change', function () {
               $('.ticket_price').html(0)
               $('.total').html(0)
               $('.subtotal_price').html(0)
-              $('.set_quantity').val(1)
-              // print(response.tickets_item)
-              if (document.querySelector('.ticket_type').value == response.tickets_item[0].ticket_type) {
-                console.log(response.tickets_item)
-                document.querySelector('.ticket_price').innerHTML = response.tickets_item[0].ticket_price
-              }
-              else if ((document.querySelector('.ticket_type').value == response.tickets_item[1].ticket_type)) {
-                document.querySelector('.ticket_price').innerHTML = response.tickets_item[1].ticket_price
-              } else {
-                document.querySelector('.ticket_price').innerHTML = response.tickets_item[1].ticket_price + "-" + response.tickets_item[0].ticket_price
-              }
+            }
 
-
-
-            })
-
-
-          } else {
-            $('.ticket_price').html(0)
-            $('.total').html(0)
-            $('.subtotal_price').html(0)
           }
 
-        }
+        })
 
-      })
+      </script>
 
-
-    </script>
-
-    {% endblock script %}
+      {% endblock script %}

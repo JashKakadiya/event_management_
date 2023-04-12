@@ -85,6 +85,7 @@ class Event(models.Model):
     Image = models.ImageField(default='None', upload_to='static/uploads/images/')
     has_tickets = models.BooleanField(default=True)
     total_count = models.PositiveBigIntegerField(default=0)
+    remain_tickets = models.PositiveBigIntegerField(default=0)
     total_cost = models.PositiveBigIntegerField(default=0)
     total_price = models.PositiveBigIntegerField(default=0)
     # event_grand_total = models.PositiveBigIntegerField(null=True, blank=True,default=   0)
@@ -97,6 +98,8 @@ class Event(models.Model):
                                     null = True, 
                                     blank = True
                                     )
+    is_deleted = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.name
 
@@ -152,6 +155,7 @@ class Tickets(models.Model):
 class Order(models.Model):
     location_link = models.CharField(max_length=200,default='None')
     event_id = models.IntegerField()
+
     user_name = models.CharField(max_length=50)
     payment_event_id = models.IntegerField(default=0, null=False, blank=False)
     amount = models.FloatField(_("Amount"), null=True, blank=True)

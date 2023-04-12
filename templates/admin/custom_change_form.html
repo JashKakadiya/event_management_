@@ -16,6 +16,13 @@
 
 <script>
 
+    var remain_tickets=  document.querySelector('#id_remain_tickets');
+
+    document.querySelector('#id_total_count').addEventListener("input", function () {
+        remain_tickets.value = document.querySelector('#id_total_count').value;
+    });
+    document.querySelector('#id_remain_tickets').disabled = true;
+
     var from_date = document.querySelector('#id_Event_from_0');
     from_date.setAttribute("type", "date");
     var to_date = document.querySelector('#id_Event_to_0')

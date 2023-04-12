@@ -23,16 +23,31 @@ from urllib.parse import urlparse,parse_qs
 from .fusioncharts import FusionCharts
 from wsgiref.util import FileWrapper
 import time
+from django.contrib import messages
 
 
 razorpay_client = razorpay.Client(
     auth=(get_razor_key_id(), get_razor_key_secret()))
 
 
+@csrf_exempt
+def event_detail(request):
+    if request.method == 'POST':
+        event_id = request.POST.get('event_id')
+        event = Event.objects.get(event_id=event_id)
+        date_diff = event.Event_to - event.Event_from
+        response_data = {
+            'event_id': event.event_id,
+            'event_name': event.name,
+            'event_from': event.Event_from.strftime("%Y-%m-%d"),
+            'event_to': event.Event_to.strftime("%Y-%m-%d"),
+            'date_diff': date_diff.days
+        }
+        return JsonResponse(response_data)
+    else:
+        return JsonResponse({'error': 'Invalid request method'})
+
 def TicketsView(request):
-    context = {
-        'id': id
-    }
     return render(request, 'frontend/tickets.html')
 
 
@@ -73,7 +88,7 @@ def PaymentView(request):
             order.status = PaymentStatus.SUCCESS
             event_location = EventLocation.objects.get(location_id=order.event_id)
             event = Event.objects.get(event_id=order.event_id)
-            event.total_count -= order.ticket_count
+            event.remain_tickets = event.remain_tickets - order.ticket_count
             print("............",event.total_count,order.ticket_count)
             event.save()
             order.location_link = event_location.location_link
@@ -88,7 +103,7 @@ def PaymentView(request):
             cvt_start = time.time()
             test.convert_to_pdf(order,get_host_companyName(request),event_location,event)
             cvt_end = time.time()
-            print("eonverter",cvt_end-cvt_start)
+            print("converter",cvt_end-cvt_start)
 
             mail_start = time.time()
             Mail_send(order,str(get_host_email()),order.email,str(get_host_password()))
@@ -279,6 +294,8 @@ def Razorpay(request):
                                                        payment_capture='0'))
 
     order = Order.objects.create(
+
+       
         user_name=user_name,
         event_id=event_id,
         event_name=event_name,
@@ -321,6 +338,8 @@ def freepay(request):
         string.ascii_uppercase + string.ascii_lowercase, k=16))
     
     order = Order.objects.create(
+
+  
         user_name=user_name,
         event_id=event_id,
         event_name=event_name,
@@ -435,10 +454,11 @@ def analysis_view(request):
     dataSource['data'] = []
     # Iterate through the data in `Revenue` model and insert in to the `dataSource['data']` list.
     for key in Event.objects.all():
-      data = {}
-      data['label'] = key.name
-      data['value'] = key.total_count
-      dataSource['data'].append(data)
+      if key.is_deleted == False:
+        data = {}
+        data['label'] = key.name
+        data['value'] = key.total_count-key.remain_tickets
+        dataSource['data'].append(data)
 
     # Create an object for the Column 2D chart using the FusionCharts class constructor
     column2D = FusionCharts("column2D", "ex1" , "600", "350", "chart-1", "json", dataSource)
@@ -452,11 +472,12 @@ def redeemed(request):
 
 @csrf_exempt
 def contact_us(request):
+    print(request.POST.get('contact_subject'))
     email = request.POST.get('contact_email')
     name = request.POST.get('contact_name')
     phone= request.POST.get('contact_phone')
-    message = request.POST.get('contact_subject') + request.POST.get('contact_message') 
-    subject = " Email from "+ email + " Name: "+ name + " Phone: "+ phone
+    subject = request.POST.get('contact_subject') + email
+    message = " Email from "+ email + " Name: "+ name + " Phone: "+ phone
     send_mail(subject, message, email, [get_host_email()], fail_silently=False)
     return JsonResponse({'status': 'success'})
 
@@ -464,9 +485,10 @@ def contact_us(request):
 
 # Define function to download pdf file using template
 def download_pdf_file(request):
-    filename = 'invoice.pdf'
+    paymentid = Order.objects.last().payment_id
+    filename = f'{paymentid}.pdf'
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    filepath = BASE_DIR + '/' + filename
+    filepath = BASE_DIR + '/static/invoices/' + filename
     path = open(filepath, 'rb')
     mime_type, _ = mimetypes.guess_type(filepath)
     response = HttpResponse(path, content_type=mime_type)

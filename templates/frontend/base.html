@@ -1,156 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
-  {% load compress %}
+{% load compress %}
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{company_name}}</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{company_name}}</title>
 
+  {% compress css %}
+  <link rel="stylesheet" href="/static/usercss/css/base.css">
+  {% endcompress %}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-      
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
-        {% compress css %}
-        <link rel="stylesheet" href='/static/usercss/css/user.css/'>
-        {% endcompress %}
-        <script src=
-        "https://smtpjs.com/v3/smtp.js">
-      </script>
-        {% block extra_style %}
-        {% endblock extra_style %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+  {% compress css %}
+  <link rel="stylesheet" href='/static/usercss/css/user.css/'>
+  {% endcompress %}
+  <script src="https://smtpjs.com/v3/smtp.js">
+  </script>
+
+  {% block extra_style %}
+  {% endblock extra_style %}
 </head>
 
-<body> 
+<body>
 
-<nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm">
+
+  
+  <nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm">
     <div class="container">
       <a href="/" class="navbar-brand">
-    
-        <img style="border-radius: 10%;" src='/{{ company_logo }}' width="45" alt="" class="d-inline-block align-middle mr-2">
-   
+
+        <img style="border-radius: 10%;" src='/{{ company_logo }}' width="45" alt=""
+          class="d-inline-block align-middle mr-2">
+
         <span class="text-uppercase font-weight-bold">{{company_name}}</span>
       </a>
-  
-      <button type="button" data-toggle="collapse" data-target="#navigationbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
-  
+
+      <button type="button" data-toggle="collapse" data-target="#navigationbar" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span
+          class="navbar-toggler-icon"></span></button>
+
       <div id="navbarSupportedContent" class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active"><a href="/" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
           <li class="nav-item"><a href="/tickets/" class="nav-link">Tickets</a></li>
           <li class="nav-item"><a href="/admin/" class="nav-link">Admin</a></li>
-          <li class="nav-item"><a href="/analysis/" class="nav-link">Analysis</a></li>
         </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="toast-notification">
+    <div class="toast-header">
+      <h5 class="toast-title">Alert !!</h5>
+      <button type="button" class="close-button" onclick="CloseAlert()">&times;</button>
+    </div>
+    <div class="toast-body">
+      Please Fill all field Correctly !
+    </div>
+  </div>
+  {% block extra_section %}{% endblock extra_section %}
+  <section class="wrapper">
+
+
+    <div class="container">
+      <div class="row">
+
+
+        <div class="col text-center mb-1" style="display: flex; flex-direction: column;">
+          {% block welcome %}
+          {% endblock welcome %}
+          <h1 class="display-4"></h1>
+
+          <p class="lead"></p>
         </div>
       </div>
-    </nav>   
+      <div class="row">
+        {% block content %}
+        {% block popup %}
 
-{% block extra_section %}{% endblock extra_section %}
-    <section class="wrapper">
-        
+        {% endblock popup %}
 
-        <div class="container">
+        {% endblock %}
+  </section>
+  </div>
+  <footer class="bg-dark opacity-85 text-white text-center g-py-100 bottom">
+    <div class="container" style="padding-top: 40px; margin-top: 40px;">
+      <header class="card-header text-center g-width-70x--md mx-auto g-mb-80">
+        <h2 class="u-heading-v8__title text-uppercase g-font-weight-600 g-mb-25">Contact us</h2>
+        <p class="lead mb-0">We do things differently company providing key digital services. Focused on helping our
+          clients to build a successful business on web and mobile.</p>
+      </header>
+
+      <address class="row g-color-white-opacity-0_8">
+
+        <div class="col-sm-6 col-md-3 g-mb-60">
+          <i class="icon-call-in d-inline-block display-5 g-mb-25"></i>
+          <h4 class="small text-uppercase g-mb-5">Address</h4>
+          <strong><a href="https://www.google.com/maps/search/{{ company_address }}">{{ company_address }} </a></strong>
+        </div>
+
+        <div class="col-sm-6 col-md-3 g-mb-60">
+          <i class="icon-call-in d-inline-block display-5 g-mb-25"></i>
+          <h4 class="small text-uppercase g-mb-5">Phone number</h4>
+          <strong><a href="https://wa.me/{{ company_Phone }}">+91 {{ company_Phone }}</a></strong>
+        </div>
+
+        <div class="col-sm-6 col-md-3">
+          <i class="icon-envelope d-inline-block display-5 g-mb-25"></i>
+          <h4 class="small text-uppercase g-mb-5">Email</h4>
+          <a class="g-color-white-opacity-0_8" href="mailto:hello@unify-gym.com">
+            <strong>{{ company_email }}</strong></a>
+        </div>
+
+        <div class="col-sm-6 col-md-3">
+          <i class="icon-earphones-alt d-inline-block display-5 g-mb-25"></i>
+          <h4 class="small text-uppercase g-mb-5">Toll free</h4>
+          <strong>{{ company_landline }}</strong>
+        </div>
+      </address>
+      <form>
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-7">
             <div class="row">
-               
-                
-                <div class="col text-center mb-1" style="display: flex; flex-direction: column;">
-                    {% block welcome %}
-                    {% endblock welcome %}
-                    <h1 class="display-4"></h1>
-                    
-                    <p class="lead"></p>
+              <div class="col-md-6">
+                <div class="form-group g-mb-20">
+                  <input style="margin-bottom: 30px;" id="contact_name"
+                    class="form-control g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_5 g-brd-white--focus g-color-white g-rounded-50 g-px-20 g-py-12"
+                    type="text" placeholder="Name">
                 </div>
-            </div>
-            <div class="row">
-                {% block content %}
-                {% block popup %}
 
-{% endblock popup %}
-
-                {% endblock %}
-    </section>
-    </div>
-    <footer class="bg-dark opacity-85 text-white text-center g-py-100 bottom">
-        <div class="container" style="padding-top: 40px; margin-top: 40px;">
-          <header class="card-header text-center g-width-70x--md mx-auto g-mb-80">
-            <h2 class="u-heading-v8__title text-uppercase g-font-weight-600 g-mb-25">Contact us</h2>
-            <p class="lead mb-0">We do things differently company providing key digital services. Focused on helping our clients to build a successful business on web and mobile.</p>
-          </header>
-      
-          <address class="row g-color-white-opacity-0_8">
-
-            <div class="col-sm-6 col-md-3 g-mb-60">
-              <i class="icon-call-in d-inline-block display-5 g-mb-25"></i>
-              <h4 class="small text-uppercase g-mb-5">Address</h4>
-              <strong>{{ company_address }}</strong>
-            </div>
-      
-            <div class="col-sm-6 col-md-3 g-mb-60">
-              <i class="icon-call-in d-inline-block display-5 g-mb-25"></i>
-              <h4 class="small text-uppercase g-mb-5">Phone number</h4>
-              <strong>+91 {{ company_Phone }}</strong>
-            </div>
-      
-            <div class="col-sm-6 col-md-3">
-              <i class="icon-envelope d-inline-block display-5 g-mb-25"></i>
-              <h4 class="small text-uppercase g-mb-5">Email</h4>
-              <a class="g-color-white-opacity-0_8" href="mailto:hello@unify-gym.com">
-                <strong>{{ company_email }}</strong></a>
-            </div>
-      
-            <div class="col-sm-6 col-md-3">
-              <i class="icon-earphones-alt d-inline-block display-5 g-mb-25"></i>
-              <h4 class="small text-uppercase g-mb-5">Toll free</h4>
-              <strong>{{ company_landline }}</strong>
-            </div>
-          </address>
-          <form>
-            {% csrf_token %}
-            <div class="row">
-              <div class="col-md-7">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group g-mb-20">
-                      <input style="margin-bottom: 30px;" id="contact_name" class="form-control g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_5 g-brd-white--focus g-color-white g-rounded-50 g-px-20 g-py-12" type="text" placeholder="Name">
-                    </div>
-      
-                    <div style="margin-bottom: 30px;" class="form-group g-mb-20">
-                      <input id="contact_phone" class="form-control g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_5 g-brd-white--focus g-color-white g-rounded-50 g-px-20 g-py-12" type="tel" placeholder="Phone">
-                    </div>
-                  </div>
-      
-                  <div class="col-md-6">
-                    <div class="form-group g-mb-20">
-                      <input style="margin-bottom: 30px;" id="contact_email" class="form-control g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_5 g-brd-white--focus g-color-white g-rounded-50 g-px-20 g-py-12" type="email" placeholder="Email">
-                    </div>
-      
-                    <div  class="form-group g-mb-20">
-                      <input style="margin-bottom: 30px;" id="contact_subject" class="form-control g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_5 g-brd-white--focus g-color-white g-rounded-50 g-px-20 g-py-12" type="text" placeholder="Subject">
-                    </div>
-                  </div>
+                <div style="margin-bottom: 30px;" class="form-group g-mb-20">
+                  <input id="contact_phone"
+                    class="form-control g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_5 g-brd-white--focus g-color-white g-rounded-50 g-px-20 g-py-12"
+                    type="tel" placeholder="Phone">
                 </div>
               </div>
-      
-              <div class="col-md-5">
+
+              <div class="col-md-6">
                 <div class="form-group g-mb-20">
-                  <textarea id="contact_message" class="form-control g-resize-none g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_5 g-brd-white--focus g-color-white g-rounded-20 g-px-20 g-py-10" rows="5" placeholder="Message"></textarea>
+                  <input style="margin-bottom: 30px;" id="contact_email"
+                    class="form-control g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_5 g-brd-white--focus g-color-white g-rounded-50 g-px-20 g-py-12"
+                    type="email" placeholder="Email">
                 </div>
-      
-                <div class="text-right">
-                  <button style="    background: black;
+
+                <div class="form-group g-mb-20">
+                  <input hidden value="from-" style="margin-bottom: 30px;" id="contact_subject"
+                    class="form-control g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_5 g-brd-white--focus g-color-white g-rounded-50 g-px-20 g-py-12"
+                    type="text" placeholder="Subject">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group g-mb-20">
+              <textarea id="contact_message"
+                class="form-control g-resize-none g-bg-transparent g-bg-transparent--focus g-brd-white-opacity-0_5 g-brd-white--focus g-color-white g-rounded-20 g-px-20 g-py-10"
+                rows="5" placeholder="Message"></textarea>
+            </div>
+
+            <div class="text-right">
+              <button style="    background: black;
                   color: wheat;
                   margin: 10px;
-              " class="btn u-btn-white g-font-size-11 text-uppercase g-font-weight-700 g-rounded-50 g-px-35 g-py-15" id="contact_submit" type="button" role="button">Submit</button>
-                </div>
-              </div>
+              " class="btn u-btn-white g-font-size-11 text-uppercase g-font-weight-700 g-rounded-50 g-px-35 g-py-15"
+                id="contact_submit" type="button" role="button">Submit</button>
             </div>
-          </form>
+          </div>
         </div>
-      </footer>
+      </form>
+    </div>
+  </footer>
 </body>
 {% block script %}
 {% endblock script %}
+<script>
+  contact_name = document.querySelector('#contact_name');
+  contact_email = document.querySelector('#contact_email');
+  contact_message = document.querySelector('#contact_message');
+  contact_subject = document.querySelector('#contact_subject');
+  contact_submit = document.querySelector('#contact_submit');
+  contact_phone = document.querySelector('#contact_phone');
+  function CloseAlert(){
+    document.querySelector('.toast-notification').style.display = 'none';
+  }
+
+  document.querySelector('#contact_submit').addEventListener('click', function () {
+    if (contact_name.value == '' || contact_email.value == '' || !contact_email.value.includes('@')  || contact_message.value == '') {
+      document.querySelector('.toast-notification').style.display = 'block';
+    } else {
+      $.ajax({
+        url: '/contact_us/',
+        type: 'POST',
+        data: {
+          'contact_name': contact_name.value,
+          'contact_email': contact_email.value,
+          'contact_message': contact_message.value,
+          'contact_subject': contact_subject.value,
+          'contact_phone': contact_phone.value,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function (data) {
+          
+          contact_name.value = '';
+          contact_email.value = '';
+          contact_message.value = '';
+          contact_subject.value = '';
+          contact_phone.value = '';
+
+          
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error(`Error: ${textStatus} - ${errorThrown}`);
+        }
+      });
+      document.querySelector('.toast-notification').style.display = 'block';
+          document.querySelector('.toast-notification').classList.add('bg-success');
+          document.querySelector('.toast-title').innerHTML = 'Success';
+          document.querySelector('.toast-body').innerHTML = 'Your message has been sent successfully';
+    }
+  });
+
+</script>
+
 </html>
