@@ -15,9 +15,17 @@ class SubloationInline(admin.StackedInline):
     model = Subloca
     extra = 1
 
+class TicketInline(admin.StackedInline):
+    model = Tickets
+    extra = 0
+
+class TicketAdmin(admin.ModelAdmin):
+    list_display=('ticket_id','event_id','ticket_type','ticket_price','ticket_count','ticket_description','created_on','updated_on')
+    exclude = ('created_on', 'updated_on')
+
 
 class EventAdmin(admin.ModelAdmin):
-    inlines = [EventlocationInline, SubloationInline]
+    inlines = [EventlocationInline, SubloationInline,TicketInline]
 
     list_display = ('name', 'Event_from', 'Event_to', 'Image', 'has_tickets', 'total_count',
                     'total_cost', 'total_price', 'paid_amount', 'pending_amount', 'has_sub_events','is_deleted')
@@ -46,9 +54,7 @@ class EventLocationAdmin(admin.ModelAdmin):
                     'state', 'country', 'zipcode', 'location_link')
 
 
-class TicketAdmin(admin.ModelAdmin):
-    list_display=('ticket_id','event_id','ticket_type','ticket_price','ticket_count','ticket_description','created_on','updated_on')
-    exclude = ('created_on', 'updated_on')
+
 
 
 admin.site.register(Event, EventAdmin)

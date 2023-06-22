@@ -1,0 +1,94 @@
+{% extends 'adminlte/base.html' %}
+
+{% block content %}
+<form class="form-inline" method = 'post'>
+    {% csrf_token %}
+    <div class="form-group mx-sm-3 mb-2">
+        <label for="inputPassword2" class="sr-only">Password</label>
+        <input type="text"  name="email" class="form-control" id="inputPassword2" placeholder="Email">
+      </div><br>
+    <button type="button" class="btn btn-success mb-2 mx-sm-3">Show transacrions</button>
+  </form> 
+  <div>
+    <table class="table" id="table-container">
+      <thead>
+        <tr>
+          <th scope="col">Email</th>
+          <th scope="col">Payment ID</th>
+          <th scope="col">Event Name</th>
+          <th scope="col">Event Location</th>
+          <th scope="col">Transaction Amount</th>
+          <th scope="col">Ticket Type</th>
+          <th scope="col">Ticket Count</th>
+          <th scope="col">Ticket Used</th>
+          <th scope="col">Payment status</th>
+          <th scope="col">Order DateTime</th>
+        </tr>
+      </thead>
+      <tbody>
+        <h1></h1>
+        {% for event in page_obj %}
+          <tr>
+            <td>{{ event.email }}</td>
+            <td>{{ event.payment_id }}</td>
+            <td>{{ event.event_name }}</td>
+            <td><a href="{{ event.location_link }}">Link</a></td>
+            <td>{{ event.amount }}</td>
+            <td>{{ event.ticket_type }}</td>
+            <td>{{ event.ticket_count }}</td>
+            <td>{{ event.ticket_used }}</td>
+            <td>{{ event.status }}</td>
+            <td>{{ event.created_on }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  
+    {% if page_obj.has_other_pages %}
+      <nav aria-label="pagination">
+        <ul class="pagination justify-content-center">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}&email={{ email }}">Previous</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link">Previous</span>
+            </li>
+          {% endif %}
+  
+          {% for page in page_obj.paginator.page_range %}
+            {% if page_obj.number == page %}
+              <li class="page-item active">
+                <span class="page-link">{{ page }}</span>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page }}&email={{ email }}">{{ page }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+  
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}&email={{ email }}">Next</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link">Next</span>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+    
+
+  </div>
+  {% endblock %}
+
+  
+  {% block extra_js %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
+
+{% endblock %}

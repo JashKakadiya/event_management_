@@ -6,13 +6,13 @@ import time
 def convert_to_pdf(data,company_logo,event,location):
     start = time.time()
     datetime_str = str(data.event_From)
-    datetime_obj = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
+    # datetime_obj = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
 
-    new_datetime_str = datetime_obj.strftime('%d %B %Y %I:%M %p')
-    new_datetime_str = new_datetime_str.replace(" 0", " ")
+    # new_datetime_str = datetime_obj.strftime('%d %B %Y %I:%M %p')
+    # new_datetime_str = new_datetime_str.replace(" 0", " ")
 
-    ordinal_indicator = 'th' if 11<=datetime_obj.day<=13 else {1:'st', 2:'nd', 3:'rd'}.get(datetime_obj.day % 10, 'th')
-    new_datetime_str = new_datetime_str[:2] + ordinal_indicator + new_datetime_str[2:]
+    # ordinal_indicator = 'th' if 11<=datetime_obj.day<=13 else {1:'st', 2:'nd', 3:'rd'}.get(datetime_obj.day % 10, 'th')
+    # new_datetime_str = new_datetime_str[:2] + ordinal_indicator + new_datetime_str[2:]
 
     with open(f"{os.path.abspath(str(location.Image))}", 'rb') as f:
         img_data = f.read()
@@ -72,7 +72,7 @@ td,th{{
                 
             </tr>
             <tr>
-                <td colspan="2"><h3>{new_datetime_str}</h3></td>
+                <td colspan="2"><h3>{datetime_str}</h3></td>
             </tr>
             <table style="width: 100%; margin-top: 30px; padding: 30px;">
                 <tr>
@@ -94,16 +94,16 @@ td,th{{
             <table style="width: 100%; padding: 30px;">
                 <tr>
                     <th style="text-align: left; border-top: 1px solid black; border-bottom: 1px solid black;"><strong><h3>Total Amount Paid</h3></strong></th>
-                    <th style="text-align: end; border-top: 1px solid black; border-bottom: 1px solid black;"><strong><h3>Rs. {(data.amount)+((data.amount)*0.18)}</h3></strong></th>
+                    <th style="text-align: end; border-top: 1px solid black; border-bottom: 1px solid black;"><strong><h3>Rs. {(data.amount)}</h3></strong></th>
                     
                 </tr>
                 <tr>
                     <td style="color: gray;"><span>Price</span></td>
-                    <td style="text-align: end; color: gray;"><span>Rs. {(data.amount)}</span></td>
+                    <td style="text-align: end; color: gray;"><span>Rs. {int((data.amount/118)*100)}</span></td>
                 </tr>
                 <tr>
                     <td style="color: gray;"><span>Tax</span></td>
-                    <td style="text-align: end; color: gray;"><span>Rs. {(data.amount)*0.18}</span></td>
+                    <td style="text-align: end; color: gray;"><span>Rs. {int(data.amount - ((data.amount/118)*100))}</span></td>
                 </tr>
             </table>
         </table>

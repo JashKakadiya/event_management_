@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import environ
-
+import os
+from django.apps import AppConfig, apps
+from django.conf import settings
 env = environ.Env(
   # set casting, default value
   DEBUG=(bool, False)
@@ -33,10 +35,11 @@ SECRET_KEY = "django-insecure-#ga9(0*px6(8pc=1j#my24jh0v@aqc0m#85&*22bk75r#5ml)q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*','https://5e9e-117-217-127-105.in.ngrok.io/']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+
 
 INSTALLED_APPS = [
 
@@ -51,8 +54,16 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "compressor",
-   
+    "rest_framework",
+ 
 ]
+
+REST_FRAMEWORK = {
+    
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 FAKER_LOCALE = None   
 FAKER_PROVIDERS = None  
 MIDDLEWARE = [

@@ -13,15 +13,56 @@
 {% block after_related_objects %}
 
 {{ block.super }}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <script>
 
+var ticket_option_1 = document.querySelector('#id_tickets_set-0-ticket_type')
+var ticket_option_2 = document.querySelector('#id_tickets_set-1-ticket_type')
+ticket_option_1.addEventListener("change", function(){
+  if (ticket_option_1.value == "VIP"){
+    document.querySelector('#id_tickets_set-1-ticket_type').value = "BASE"
+    document.querySelector('#id_tickets_set-1-ticket_type').disabled = true
+  }else if(ticket_option_1.value == "BASE"){
+    document.querySelector('#id_tickets_set-1-ticket_type').value = "VIP"
+    document.querySelector('#id_tickets_set-1-ticket_type').disabled = true
+  }
+});
+
+ticket_option_2.addEventListener("change", function(){
+  if (ticket_option_2.value == "VIP"){
+    document.querySelector('#id_tickets_set-0-ticket_type').value = "BASE"
+    document.querySelector('#id_tickets_set-0-ticket_type').disabled = true
+  }else if(ticket_option_2.value == "BASE"){
+    document.querySelector('#id_tickets_set-0-ticket_type').value = "VIP"
+    document.querySelector('#id_tickets_set-0-ticket_type').disabled = true
+  }
+});
+
+// var VipBaseSum = parseInt(document.querySelector('#id_tickets_set-0-ticket_count').value) + parseInt(document.querySelector('#id_tickets_set-1-ticket_count').value)
+// if(VipBaseSum > document.querySelector('#id_remain_tickets').value){
+//   alert("your ticket is out of range")
+//   console.log(VipBaseSum)
+// }
+$(document).ready(function() {
+    $('input[name="_save"]').closest('form').on('submit', function(event) {
+      var VipBaseSum = parseInt(document.querySelector('#id_tickets_set-0-ticket_count').value) + parseInt(document.querySelector('#id_tickets_set-1-ticket_count').value);
+      if (VipBaseSum > document.querySelector('#id_remain_tickets').value) {
+        alert("your ticket is out of range");
+        console.log(VipBaseSum);
+        event.preventDefault();
+      }
+    });
+  });
+
     var remain_tickets=  document.querySelector('#id_remain_tickets');
+    remain_tickets.setAttribute('nonrequired','nonrequired')
 
     document.querySelector('#id_total_count').addEventListener("input", function () {
         remain_tickets.value = document.querySelector('#id_total_count').value;
     });
-    document.querySelector('#id_remain_tickets').disabled = true;
+    // document.querySelector('#id_remain_tickets').disabled = true;
 
     var from_date = document.querySelector('#id_Event_from_0');
     from_date.setAttribute("type", "date");
@@ -44,6 +85,7 @@
         }
         
     });
+
 
 
     let has_sub = document.querySelector("#id_has_sub_events");

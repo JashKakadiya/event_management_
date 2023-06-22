@@ -31,40 +31,34 @@
 {% endblock popup %}
 
 {% for i in event_item %}
-{% if i.is_deleted %}
+<!-- <h1>{{i.Event_to}}    {{today}}</h1> -->
 
-
-
-
-{% else %}
-<div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-  <div class="card text-white card-has-bg click-col" style="background-image:url({{i.Image}});">
-    <img class="card-img d-none" src="static/images/dummy_img.jpg"
-      alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
-    <div class="card-img-overlay d-flex flex-column">
-      <div class="card-body">
-
-        <h4 class="card-title mt-0 "><input class="text-white" type="button" value='{{i.name}}'
-            style="border: none; background: none;" onclick="popup_show('{{i.event_id}}')"></h4>
-        <small><i class="far fa-clock"></i>{{ i.Event_from }}</small> <br>
-        <small><i class="far fa-clock"></i>To</small>
-        <small><i class="far fa-clock"></i>{{ i.Event_to }}</small>
-      </div>
-      <div class="card-footer">
-        <div class="media">
-          <div class="media-body">
-            <h6 class="my-0 text-white d-block">{{ i.location_id.title }}</h6>
-            <small></small>
+    {% if not i.is_deleted %}
+      <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+        <div class="card text-white card-has-bg click-col" style="background-image:url({{i.Image}});">
+          <img class="card-img d-none" src="static/images/dummy_img.jpg" alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
+          <div class="card-img-overlay d-flex flex-column">
+            <div class="card-body">
+              <h4 class="card-title mt-0 "><input class="text-white" type="button" value='{{i.name}}' style="border: none; background: none;" onclick="popup_show('{{i.event_id}}')"></h4>
+              <small><i class="far fa-clock"></i>{{ i.Event_from }}</small> <br>
+              <small><i class="far fa-clock"></i>To</small>
+              <small><i class="far fa-clock"></i>{{ i.Event_to }}</small>
+            </div>
+            <div class="card-footer">
+              <div class="media">
+                <div class="media-body">
+                  <h6 class="my-0 text-black d-block">{{ i.location_id.address }}</h6>
+                  <small></small>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-{% endif %}
-
+    {% endif %}
 
 {% endfor %}
+
 {% endblock %}
 
 {% block script %}

@@ -1,9 +1,13 @@
+{% load compress %}
 <!DOCTYPE html>
+
 <html>
   <head>
     <meta charset="UTF-8" />
     <title>Ticket Sale Details</title>
+    {% compress css %}
     <style>
+      
       body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: #e2f4e6;
@@ -155,6 +159,7 @@
     justify-content: center;
   }
     </style>
+    {% endcompress %}
   </head>
   <body>
     <div id="img">
@@ -191,7 +196,7 @@
             console.log(status.innerHTML)
             if(status.innerHTML == "Yes"){
                 document.querySelector("#btn").style.display = "none"
-                window.location.href = "/redeemed/"
+                {% comment %} window.location.href = "/redeemed/" {% endcomment %}
             }
         }
         checkStatus()
@@ -210,16 +215,10 @@
               if (data == "True"){
                 alert("Ticket Redeemed")
                 const status = document.querySelector("#status")
+                document.querySelector("#btn").style.display = "none"
                 status.innerHTML = data
                 checkStatus()
-              }else{
-                console.log(data)
-                const status = document.querySelector("#status")
-                status.innerHTML = data
-                checkStatus()
-              }
-               
-
+              }                
             })
         }
     </script>

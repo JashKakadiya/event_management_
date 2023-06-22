@@ -24,6 +24,7 @@ django-cron = "*"
 django-crontab = "*"
 mysql = "*"
 "mysql.connector" = "*"
+djangorestframework = "*"
 
 [dev-packages]
 

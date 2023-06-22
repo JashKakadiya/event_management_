@@ -15,6 +15,7 @@ from static.pypdf import test
 import os
 import random
 import string
+from django.utils import timezone
 from .systemconfig import *
 from qrcode import *
 from .qrcoded import *
@@ -24,6 +25,7 @@ from .fusioncharts import FusionCharts
 from wsgiref.util import FileWrapper
 import time
 from django.contrib import messages
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 
 razorpay_client = razorpay.Client(
@@ -88,6 +90,10 @@ def PaymentView(request):
             order.status = PaymentStatus.SUCCESS
             event_location = EventLocation.objects.get(location_id=order.event_id)
             event = Event.objects.get(event_id=order.event_id)
+
+            start_date = event.Event_from
+            end_date = event.Event_to
+
             event.remain_tickets = event.remain_tickets - order.ticket_count
             print("............",event.total_count,order.ticket_count)
             event.save()
@@ -177,11 +183,15 @@ def PaymentView(request):
 
 def IndexView(request):
     event_location = EventLocation.objects.all()
+    current_date = timezone.now().date()
+    event_item = Event.objects.filter(Event_to__gt=current_date, is_deleted=False)
     event_item = Event.objects.all()
+    
     context = {
         'event_location': event_location,
         'event_item': event_item,
-        'today': datetime.now(),
+        'today': current_date,
+
     }
     return render(request, 'frontend/index.html', context)
 
@@ -276,17 +286,21 @@ class EventCatagoryView(generic.ListView):
 
 @csrf_exempt
 def Razorpay(request):
+    
+    event_dates = request.POST.get('event_dates')
     event_name = request.POST.get('event_name')
     ticket_count = request.POST.get('ticket_count')
     ticket_type = request.POST.get('ticket_type')
     payment_event_id = request.POST.get('event_id')
     amount = int(request.POST.get('total'))
+    total_amount = (amount * 0.18) + amount
     user_email = request.POST.get('email')
     user_phone = request.POST.get('phone')
     user_name = request.POST.get('user_name')
     event_id = request.POST.get('event_id')
-    event_From = Event.objects.get(event_id=payment_event_id)
-    event_From = event_From.Event_from.strftime('%Y-%m-%d %H:%M:%S')
+    event_From = event_dates
+    # event_From = Event.objects.get(event_id=payment_event_id)
+    # event_From = event_From.Event_from.strftime('%Y-%m-%d %H:%M:%S')
 
     order_currency = 'INR'
     razorpay_order = razorpay_client.order.create(dict(amount=amount*100,
@@ -302,7 +316,7 @@ def Razorpay(request):
         ticket_count=ticket_count,
         ticket_type=ticket_type,
         event_From=event_From,
-        amount=amount,
+        amount=total_amount,
         provider_order_id=razorpay_order['id'],
         email=user_email,
         user_phone=user_phone,
@@ -446,6 +460,8 @@ def analysis_view(request):
             "yAxisName": "Ticket remaining",
             "numberPrefix": "Ps. ",
             "theme": "fusion"
+
+            
         }
 
     # The data for the chart should be in an array where each element of the array is a JSON object
@@ -495,3 +511,34 @@ def download_pdf_file(request):
     response['Content-Disposition'] = "attachment; filename=%s" % filename
     return response
 
+
+@csrf_exempt
+def recent_transactions(request):
+        
+
+    email = request.POST.get('email')
+    events = Order.objects.all().order_by('-created_on')
+    items_per_page = 10
+    paginator = Paginator(events, items_per_page)
+    page_number = request.GET.get('page')
+    try:
+        page_obj = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        page_obj = paginator.get_page(1)
+    except EmptyPage:
+        page_obj = paginator.get_page(paginator.num_pages)
+    context = {
+        'events': events,
+        'email': email,
+        'page_obj': page_obj,
+    }
+
+    return render(request, 'frontend/recent_transactions.html', context)
+
+
+@csrf_exempt
+def choices(request):
+    if request.method == 'POST':
+        event_dates = request.POST.get('event_dates')
+        print(event_dates) 
+    return HttpResponse("success")
