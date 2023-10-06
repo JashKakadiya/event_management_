@@ -17,7 +17,16 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <script>
-
+    let has_sub = document.querySelector("#id_has_sub_events");
+    has_sub.addEventListener("change", function () {
+        var form_button = document.querySelector("#subloca_set-group");
+        if (has_sub.value == 'Yes') {
+            form_button.style.display = "block";
+        }
+        else {
+            form_button.style.display = "none";
+        }
+    });
 var ticket_option_1 = document.querySelector('#id_tickets_set-0-ticket_type')
 var ticket_option_2 = document.querySelector('#id_tickets_set-1-ticket_type')
 ticket_option_1.addEventListener("change", function(){
@@ -88,17 +97,7 @@ $(document).ready(function() {
 
 
 
-    let has_sub = document.querySelector("#id_has_sub_events");
-    has_sub.addEventListener("input", function () {
-        console.log(has_sub.value);
-        var form_button = document.querySelector("#subloca_set-group");
-        if (has_sub.value == 'Yes') {
-            form_button.style.display = "block";subloca_set-group
-        }
-        else {
-            form_button.style.display = "none";
-        }
-    });
+
     
  let total_cost = (document.querySelector("#id_total_cost"));
  let total_price = (document.querySelector("#id_total_price"));

@@ -17,7 +17,7 @@ class SubloationInline(admin.StackedInline):
 
 class TicketInline(admin.StackedInline):
     model = Tickets
-    extra = 0
+    extra = 2
 
 class TicketAdmin(admin.ModelAdmin):
     list_display=('ticket_id','event_id','ticket_type','ticket_price','ticket_count','ticket_description','created_on','updated_on')
