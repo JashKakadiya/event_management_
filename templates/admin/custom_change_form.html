@@ -33,11 +33,22 @@ ticket_option_1.addEventListener("change", function(){
 ticket_option_2.addEventListener("change", function(){
   if (ticket_option_2.value == "VIP"){
     document.querySelector('#id_tickets_set-0-ticket_type').value = "BASE"
-    document.querySelector('#id_tickets_set-0-ticket_type').disabled = true
+    {% comment %} document.querySelector('#id_tickets_set-0-ticket_type').disabled = true {% endcomment %}
   }else if(ticket_option_2.value == "BASE"){
     document.querySelector('#id_tickets_set-0-ticket_type').value = "VIP"
-    document.querySelector('#id_tickets_set-0-ticket_type').disabled = true
+    {% comment %} document.querySelector('#id_tickets_set-0-ticket_type').disabled = true {% endcomment %}
   }
+});
+let has_sub = document.querySelector("#id_has_sub_events");
+has_sub.addEventListener("input", function () {
+    console.log(has_sub.value);
+    var form_button = document.querySelector("#subloca_set-group");
+    if (has_sub.value == 'Yes') {
+        form_button.style.display = "block";subloca_set-group
+    }
+    else {
+        form_button.style.display = "none";
+    }
 });
 
 // var VipBaseSum = parseInt(document.querySelector('#id_tickets_set-0-ticket_count').value) + parseInt(document.querySelector('#id_tickets_set-1-ticket_count').value)
@@ -88,17 +99,7 @@ $(document).ready(function() {
 
 
 
-    let has_sub = document.querySelector("#id_has_sub_events");
-    has_sub.addEventListener("input", function () {
-        console.log(has_sub.value);
-        var form_button = document.querySelector("#subloca_set-group");
-        if (has_sub.value == 'Yes') {
-            form_button.style.display = "block";subloca_set-group
-        }
-        else {
-            form_button.style.display = "none";
-        }
-    });
+
     
  let total_cost = (document.querySelector("#id_total_cost"));
  let total_price = (document.querySelector("#id_total_price"));

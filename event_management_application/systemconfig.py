@@ -7,47 +7,54 @@ from email import encoders
 import os
 import time 
 
+if SystemConfigs.objects.all().count() ==0:
+    print("yes")
+    SystemConfigs.objects.create()
+else:
+    pass
+
 systemconfig_obj = SystemConfigs.objects.first()
+
 
 def get_host_email():
     if systemconfig_obj.system_config_EMAIL_HOST_USER:
 
         return systemconfig_obj.system_config_EMAIL_HOST_USER
     else:
-        return ""
+        return "example@email"
 
 def get_host_password():
     if systemconfig_obj.system_config_EMAIL_HOST_PASSWORD:
         return systemconfig_obj.system_config_EMAIL_HOST_PASSWORD
     else:
-        return ""
+        return "password"
     
 
 def get_razor_key_id():
     if systemconfig_obj.system_config_RAZOR_KEY_ID:
         return systemconfig_obj.system_config_RAZOR_KEY_ID
     else:
-        return ""
+        return "is"
     
 def get_razor_key_secret():
     if systemconfig_obj.system_config_RAZOR_KEY_SECRET:
 
         return systemconfig_obj.system_config_RAZOR_KEY_SECRET
     else:
-        return ""
+        return "key"
 
 def get_host_companyName(request):
     if systemconfig_obj.system_config_COMPANY_TITLE:
         return {'company_name':systemconfig_obj.system_config_COMPANY_TITLE}
     else:
-        return ""
+        return "C_name"
 
 def get_host_companyAddress():
     if systemconfig_obj.system_config_COMPANY_ADDRESS:
 
         return systemconfig_obj.system_config_COMPANY_ADDRESS
     else:
-        return ""
+        return "Address"
 
 def get_host_companyPhone(request):
     if systemconfig_obj.system_config_COMPANY_PHONE:
@@ -55,7 +62,7 @@ def get_host_companyPhone(request):
         return {'company_Phone':systemconfig_obj.system_config_COMPANY_PHONE}
 
     else:
-        return ""
+        return "0000"
 
 def get_host_companyEmail():
     if systemconfig_obj.system_config_COMPANY_EMAIL:

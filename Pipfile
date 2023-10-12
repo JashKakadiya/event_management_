@@ -13,7 +13,7 @@ localstoragepy = "*"
 pdfkit = "*"
 wkhtmltopdf = "*"
 stripe = "*"
-django-payments = {extras = ["stripe"], version = "*"}
+django-payments = "*"
 qrcode = "*"
 pillow = "*"
 pip = "*"

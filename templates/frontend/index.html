@@ -29,6 +29,7 @@
   </div>
 </div>
 {% endblock popup %}
+{% if event_item %}
 
 {% for i in event_item %}
 <!-- <h1>{{i.Event_to}}    {{today}}</h1> -->
@@ -47,7 +48,7 @@
             <div class="card-footer">
               <div class="media">
                 <div class="media-body">
-                  <h6 class="my-0 text-black d-block">{{ i.location_id.address }}</h6>
+                  <h6 class="my-0 text-black d-block">{{ i.event_id.location_id }}</h6>
                   <small></small>
                 </div>
               </div>
@@ -55,9 +56,19 @@
           </div>
         </div>
       </div>
+      {% else %}
+      <h1 class="logo mb-5"style=' text-align: center;'>Sorry curruntly no event is hosted </h1>
     {% endif %}
 
+
+
+
 {% endfor %}
+{% else %}
+<h1 class="logo mb-5"style=' text-align: center;'>Sorry curruntly no event is hosted </h1>
+
+{% endif %}
+
 
 {% endblock %}
 

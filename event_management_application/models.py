@@ -78,7 +78,7 @@ class Client(models.Model):
 class Event(models.Model):
     event_id = models.AutoField(primary_key=True)
     # event_location_id = models.ForeignKey(EventLocation, on_delete=models.CASCADE)
-    location_id = models.ForeignKey("EventLocation", on_delete=models.CASCADE, null=True, blank=True)
+    # location_id = models.ForeignKey("EventLocation", on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=50,default='None')
     Event_from = models.DateTimeField()
     Event_to = models.DateTimeField()
@@ -218,26 +218,26 @@ class Seats(models.Model):
     
 
 class SystemConfigs(models.Model):
-    system_config_DATABASE_USER = models.CharField(max_length=50)
-    system_config_DATABASE_PASSWORD = models.CharField(max_length=50)
-    system_config_RAZOR_KEY_ID = models.CharField(max_length=50)
-    system_config_RAZOR_KEY_SECRET = models.CharField(max_length=50)
+    system_config_DATABASE_USER = models.CharField(max_length=50 , default="database name")
+    system_config_DATABASE_PASSWORD = models.CharField(max_length=50 , default ="pass")
+    system_config_RAZOR_KEY_ID = models.CharField(max_length=50,default="id")
+    system_config_RAZOR_KEY_SECRET = models.CharField(max_length=50,default="key")
     system_config_PAYMENT_METHOD = models.CharField(max_length=50 , choices=( 
         ('RAZORPAY', 'RAZORPAY'), 
         ('PAYTM', 'PAYTM'),
         ('PAYPAL', 'PAYPAL'),
         ('CASH', 'CASH'), 
-        ))
-    system_config_EMAIL_HOST_USER = models.CharField(max_length=50)
-    system_config_EMAIL_HOST_PASSWORD = models.CharField(max_length=50)
-    system_config_COMPANY_TITLE = models.CharField(max_length=50)
-    system_config_COMPANY_ADDRESS = models.CharField(max_length=50)
-    system_config_COMPANY_PHONE = models.CharField(max_length=50)   
-    system_config_COMPANY_EMAIL = models.CharField(max_length=50)
+        ),default="CASH")
+    system_config_EMAIL_HOST_USER = models.CharField(max_length=50,default="Jash")
+    system_config_EMAIL_HOST_PASSWORD = models.CharField(max_length=50,default="Jash")
+    system_config_COMPANY_TITLE = models.CharField(max_length=50,default="Jash")
+    system_config_COMPANY_ADDRESS = models.CharField(max_length=50,default="Jash")
+    system_config_COMPANY_PHONE = models.CharField(max_length=50,default="Jash")   
+    system_config_COMPANY_EMAIL = models.CharField(max_length=50,default="Jash")
     system_config_COMPANY_LOGO = models.ImageField(upload_to='static/logo/', default='https://bootstrapious.com/i/snippets/sn-nav-logo/logo.png')
     system_config_Currency = models.CharField(max_length=50, default='INR')
     system_config_HOST_WEBSITE = models.CharField(max_length=250,default='http://127.0.0.1:8000/')
-    system_config_COMPANY_LANDLINE = models.CharField(max_length=50)
+    system_config_COMPANY_LANDLINE = models.CharField(max_length=50,default="000")
     created_on = models.DateTimeField(default = timezone.now)
     updated_on = models.DateTimeField(default = timezone.now,
                                     null = True,

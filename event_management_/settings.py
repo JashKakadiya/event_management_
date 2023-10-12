@@ -11,18 +11,18 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-import environ
+# import environ
 import os
 from django.apps import AppConfig, apps
 from django.conf import settings
-env = environ.Env(
-  # set casting, default value
-  DEBUG=(bool, False)
-)
+# env = environ.Env(
+#   # set casting, default value
+#   DEBUG=(bool, False)
+# )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-environ.Env.read_env(env_file=BASE_DIR / ".env")
+# environ.Env.read_env(env_file=BASE_DIR / ".env")
 
 
 
@@ -113,9 +113,9 @@ WSGI_APPLICATION = "event_management_.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASS'),
+        'NAME': 'test',
+        'USER': 'root',
+        'PASSWORD': 'password@12P',
         'HOST':'localhost',
         'PORT':'3306',
     }
@@ -167,8 +167,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 APPEND_SLASH=False
 
-RAZOR_KEY_ID = env("RAZOR_KEY_ID")
-RAZOR_KEY_SECRET = env("RAZOR_KEY_SECRET")
+RAZOR_KEY_ID = 'rzp_test_IaiRH6KTzekyq8'
+RAZOR_KEY_SECRET = '5C8P0DIt7tBWmtGMFNfvm6RT'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

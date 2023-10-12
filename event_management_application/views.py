@@ -5,26 +5,19 @@ from .models import *
 from django.http import JsonResponse
 from django.http import HttpResponse
 import razorpay
-from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponseBadRequest
-from localStoragePy import localStoragePy
 import json
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import send_mail
 from static.pypdf import test
 import os
 import random
 import string
 from django.utils import timezone
-from .systemconfig import *
-from qrcode import *
-from .qrcoded import *
-import smtplib
+from .systemconfig import get_host_companyName,Mail_send,get_host_email,get_host_password
+from .qrcoded import get_razor_key_id,get_razor_key_secret,generate_hash,generate_url,invoive_qrcode
 from urllib.parse import urlparse,parse_qs 
 from .fusioncharts import FusionCharts
-from wsgiref.util import FileWrapper
 import time
-from django.contrib import messages
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 
@@ -184,7 +177,7 @@ def PaymentView(request):
 def IndexView(request):
     event_location = EventLocation.objects.all()
     current_date = timezone.now().date()
-    event_item = Event.objects.filter(Event_to__gt=current_date, is_deleted=False)
+    # event_item = Event.objects.filter(Event_to__gt=current_date, is_deleted=False)
     event_item = Event.objects.all()
     
     context = {
