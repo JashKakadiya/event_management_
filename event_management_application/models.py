@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.db import models
 from django.db.models.fields import CharField
 from django.utils.translation import gettext_lazy as _
-from .constants import PaymentStatus
+from .scripts.constants import PaymentStatus
 from django.core.exceptions import ValidationError
 # from django.contrib.postgres.fields import ArrayField
 
@@ -38,6 +38,9 @@ class Employee(models.Model):
                                     )
     def __str__(self):
         return self.first_name
+    
+    class Meta:
+        db_table = "employee"
 
 class Category(models.Model):
     category_id = models.AutoField(primary_key=True)
@@ -61,6 +64,9 @@ class Category(models.Model):
                                     ))
     def __str__(self):
         return self.name
+    
+    class Meta:
+        db_table = "category"
 
 class Client(models.Model):
     client_id = models.AutoField(primary_key=True)
@@ -74,6 +80,9 @@ class Client(models.Model):
                                     )
     def __str__(self):
         return self.client_name
+    
+    class Meta:
+        db_table = "client"
 
 class Event(models.Model):
     event_id = models.AutoField(primary_key=True)
@@ -102,6 +111,9 @@ class Event(models.Model):
     
     def __str__(self):
         return self.name
+    
+    class Meta:
+        db_table = "event"
 
 class EventLocation(models.Model):
     # event_location_id = models.IntegerField(primary_key=True)
@@ -117,18 +129,27 @@ class EventLocation(models.Model):
     location_link = models.CharField(max_length=200,default='None')
     def __str__(self):
         return self.title
+    
+    class Meta:
+        db_table = "event_location"
 
 class Subloca(models.Model):
     address = models.CharField(max_length=250)
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
     def __str__(self):
         return self.address
+    
+    class Meta:
+        db_table="sub_location"
 
 class EventCategory(models.Model):
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
     catgory_id = models.ForeignKey(Category, on_delete=models.CASCADE)
     def __str__(self):
         return self.event_id
+    
+    class Meta:
+        db_table = "event_category"
 
 class EventEmployee(models.Model):
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
@@ -136,6 +157,9 @@ class EventEmployee(models.Model):
     role_note = models.CharField(max_length=50)
     def __str__(self):
         return self.event_id
+    
+    class Meta:
+        db_table = "event_employee"
 
 class Tickets(models.Model):
     ticket_id = models.AutoField(primary_key=True)
@@ -151,6 +175,9 @@ class Tickets(models.Model):
                                     )
     def __str__(self):
         return f"{self.event_id}--{self.ticket_type}--{self.ticket_count} "
+    
+    class Meta:
+        db_table = "tickets"
     
 class Order(models.Model):
     location_link = models.CharField(max_length=200,default='None')
@@ -203,6 +230,9 @@ class Order(models.Model):
     def __str__(self):
         return f"{self.payment_id}--{self.save_hash}"
     
+    class Meta:
+        db_table = "order"
+    
 class Seats(models.Model):
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
     seat_name = models.CharField(max_length=50)
@@ -216,33 +246,32 @@ class Seats(models.Model):
     def __str__(self):
         return self.seat_name
     
+    class Meta:
+        db_table = "seats"
 
 class SystemConfigs(models.Model):
-    system_config_DATABASE_USER = models.CharField(max_length=50)
-    system_config_DATABASE_PASSWORD = models.CharField(max_length=50)
-    system_config_RAZOR_KEY_ID = models.CharField(max_length=50)
-    system_config_RAZOR_KEY_SECRET = models.CharField(max_length=50)
+    system_config_DATABASE_USER = models.CharField(max_length=50,blank=True,null=True)
+    system_config_DATABASE_PASSWORD = models.CharField(max_length=50,blank=True,null=True)
+    system_config_RAZOR_KEY_ID = models.CharField(max_length=50,blank=True,null=True)
+    system_config_RAZOR_KEY_SECRET = models.CharField(max_length=50,blank=True,null=True)
     system_config_PAYMENT_METHOD = models.CharField(max_length=50 , choices=( 
         ('RAZORPAY', 'RAZORPAY'), 
         ('PAYTM', 'PAYTM'),
         ('PAYPAL', 'PAYPAL'),
         ('CASH', 'CASH'), 
-        ))
-    system_config_EMAIL_HOST_USER = models.CharField(max_length=50)
-    system_config_EMAIL_HOST_PASSWORD = models.CharField(max_length=50)
-    system_config_COMPANY_TITLE = models.CharField(max_length=50)
-    system_config_COMPANY_ADDRESS = models.CharField(max_length=50)
-    system_config_COMPANY_PHONE = models.CharField(max_length=50)   
-    system_config_COMPANY_EMAIL = models.CharField(max_length=50)
+        ),blank=True,null=True)
+    system_config_EMAIL_HOST_USER = models.CharField(max_length=50,blank=True,null=True)
+    system_config_EMAIL_HOST_PASSWORD = models.CharField(max_length=50,blank=True,null=True)
+    system_config_COMPANY_TITLE = models.CharField(max_length=50,blank=True,null=True)
+    system_config_COMPANY_ADDRESS = models.CharField(max_length=50,blank=True,null=True)
+    system_config_COMPANY_PHONE = models.CharField(max_length=50,blank=True,null=True)   
+    system_config_COMPANY_EMAIL = models.CharField(max_length=50,blank=True,null=True)
     system_config_COMPANY_LOGO = models.ImageField(upload_to='static/logo/', default='https://bootstrapious.com/i/snippets/sn-nav-logo/logo.png')
     system_config_Currency = models.CharField(max_length=50, default='INR')
     system_config_HOST_WEBSITE = models.CharField(max_length=250,default='http://127.0.0.1:8000/')
-    system_config_COMPANY_LANDLINE = models.CharField(max_length=50)
-    created_on = models.DateTimeField(default = timezone.now)
-    updated_on = models.DateTimeField(default = timezone.now,
-                                    null = True,
-                                    blank = True
-                                    )
+    system_config_COMPANY_LANDLINE = models.CharField(max_length=50,blank=True,null=True)
+    created_on = models.DateTimeField(auto_now_add=True,auto_now=False,editable=False)
+    updated_on = models.DateTimeField(auto_now=True)
     
     def save(self, *args, **kwargs):
         if not self.pk and SystemConfigs.objects.exists():
@@ -250,7 +279,8 @@ class SystemConfigs(models.Model):
         return super(SystemConfigs, self).save(*args, **kwargs)
     
 
-
+    class Meta:
+        db_table = "system_configs"
 
 
 

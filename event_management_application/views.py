@@ -16,12 +16,12 @@ import os
 import random
 import string
 from django.utils import timezone
-from .systemconfig import *
+from .scripts.systemconfig import *
 from qrcode import *
-from .qrcoded import *
+from .scripts.qrcoded import *
 import smtplib
 from urllib.parse import urlparse,parse_qs 
-from .fusioncharts import FusionCharts
+from .scripts.fusioncharts import FusionCharts
 from wsgiref.util import FileWrapper
 import time
 from django.contrib import messages

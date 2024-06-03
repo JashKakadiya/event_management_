@@ -85,14 +85,14 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "event_management_application.systemconfig.get_host_companyName",
-                "event_management_application.systemconfig.get_host_companyPhone",
-                "event_management_application.systemconfig.get_host_CompanyLogo",
-                "event_management_application.systemconfig.get_host_Currency",
-                "event_management_application.systemconfig.get_host_companyAddress_html",
-                "event_management_application.systemconfig.get_host_companyEmail_html",
-                "event_management_application.systemconfig.get_host_companyLandline_html",
-                "event_management_application.systemconfig.get_host_website_html",
+                "event_management_application.scripts.systemconfig.get_host_companyName",
+                "event_management_application.scripts.systemconfig.get_host_companyPhone",
+                "event_management_application.scripts.systemconfig.get_host_CompanyLogo",
+                "event_management_application.scripts.systemconfig.get_host_Currency",
+                "event_management_application.scripts.systemconfig.get_host_companyAddress_html",
+                "event_management_application.scripts.systemconfig.get_host_companyEmail_html",
+                "event_management_application.scripts.systemconfig.get_host_companyLandline_html",
+                "event_management_application.scripts.systemconfig.get_host_website_html",
 
             ],
         },
@@ -107,12 +107,14 @@ WSGI_APPLICATION = "event_management_.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DATABASE_NAME'),
-        'USER': os.getenv('DATABASE_USER'),
-        'PASSWORD': os.getenv('DATABASE_PASS'),
-        'HOST':'localhost',
-        'PORT':'3306',
+
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv("DBNAME"),
+        'USER': os.getenv("DBUSER"),
+        'PASSWORD': os.getenv("DBPASS"),
+        'HOST': os.getenv("DBHOST"),
+        'PORT': os.getenv("DBPORT"),
+
     }
 }
 
