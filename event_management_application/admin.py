@@ -35,13 +35,13 @@ class EventAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
-    def save_related(self, request, form, formsets, change):
-        super().save_related(request, form, formsets, change)
-        location = EventLocation.objects.last().location_id
+    # def save_related(self, request, form, formsets, change):
+    #     super().save_related(request, form, formsets, change)
+    #     location = EventLocation.objects.last().location_id
 
-        event = Event.objects.get(event_id=Event.objects.last().event_id)
-        event.location_id = EventLocation.objects.get(location_id=location)
-        event.save()
+    #     event = Event.objects.get(event_id=Event.objects.last().event_id)
+    #     event.location_id = EventLocation.objects.get(location_id=location)
+    #     event.save()
 
     def edit_button(self, obj):
         url = reverse('admin:events_event_change', args=[obj.id])

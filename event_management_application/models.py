@@ -87,7 +87,7 @@ class Client(models.Model):
 class Event(models.Model):
     event_id = models.AutoField(primary_key=True)
     # event_location_id = models.ForeignKey(EventLocation, on_delete=models.CASCADE)
-    location_id = models.ForeignKey("EventLocation", on_delete=models.CASCADE, null=True, blank=True)
+    # location_id = models.ForeignKey("EventLocation", on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=50,default='None')
     Event_from = models.DateTimeField()
     Event_to = models.DateTimeField()
@@ -164,7 +164,7 @@ class EventEmployee(models.Model):
 class Tickets(models.Model):
     ticket_id = models.AutoField(primary_key=True)
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
-    ticket_type = models.CharField(max_length=50, choices=( ('VIP', 'VIP'), ('BASE', 'BASE') ))
+    ticket_type = models.CharField(max_length=50, choices=( ('VIP', 'VIP'), ('BASE', 'BASE')),blank=True,null=False)
     ticket_price = models.IntegerField()
     ticket_count = models.IntegerField()
     ticket_description = models.CharField(max_length=50)

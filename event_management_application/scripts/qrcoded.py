@@ -34,7 +34,7 @@ from .systemconfig import *
 def invoive_qrcode(data,order):
     img = qrcode.make(data)
     img_name = f"{order.payment_id}.png"
-    img.save(os.path.abspath(os.path.dirname(__file__))+'/media'+'/'+ img_name)
+    img.save(os.path.abspath(os.path.dirname(__file__))+'/../media'+'/'+ img_name)
     
 
 def generate_hash(data):
