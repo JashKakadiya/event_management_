@@ -38,8 +38,8 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
 
-    "adminlte3",
-    "adminlte3_theme",
+    # "adminlte3",
+    # "adminlte3_theme",
     "django_crontab",
     "event_management_application.apps.EventManagementApplicationConfig",
     "django.contrib.admin",

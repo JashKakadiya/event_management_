@@ -45,6 +45,7 @@ def event_detail(request):
             'event_to': event.Event_to.strftime("%Y-%m-%d"),
             'date_diff': date_diff.days
         }
+        print(response_data)
         return JsonResponse(response_data)
     else:
         return JsonResponse({'error': 'Invalid request method'})
@@ -292,6 +293,7 @@ def Razorpay(request):
     ticket_count = request.POST.get('ticket_count')
     ticket_type = request.POST.get('ticket_type')
     payment_event_id = request.POST.get('event_id')
+    
     amount = int(request.POST.get('total'))
     total_amount = (amount * 0.18) + amount
     user_email = request.POST.get('email')

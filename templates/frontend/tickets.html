@@ -443,6 +443,7 @@
             }
 
             if (localStorage.getItem('event_type') != 'free') {
+              console.log(response)
               count_base = response.tickets_item[0].ticket_count
               count_vip = response.tickets_item[1].ticket_count
               document.querySelector('.ticket_price').innerHTML = response.tickets_item[1].ticket_price + "-" + response.tickets_item[0].ticket_price

@@ -7,121 +7,89 @@ from email import encoders
 import os
 import time 
 
-if SystemConfigs.objects.count() == 0:
-    SystemConfigs.objects.create()
-systemconfig_obj = SystemConfigs.objects.first()
+def get_config():
+    try:
+        return SystemConfigs.objects.first()
+    except Exception as e:
+        print(f"Error retrieving system configuration: {e}")
+        return None
+
 
 def get_host_email():
-    if systemconfig_obj.system_config_EMAIL_HOST_USER:
+    systemconfig_obj = get_config()
+    
 
-        return systemconfig_obj.system_config_EMAIL_HOST_USER
-    else:
-        return ""
+    return systemconfig_obj.system_config_EMAIL_HOST_USER if systemconfig_obj else ""
+    
 
 def get_host_password():
-    if systemconfig_obj.system_config_EMAIL_HOST_PASSWORD:
-        return systemconfig_obj.system_config_EMAIL_HOST_PASSWORD
-    else:
-        return ""
-    
+    systemconfig_obj = get_config()
+    return systemconfig_obj.system_config_EMAIL_HOST_PASSWORD if systemconfig_obj else ""
+
 
 def get_razor_key_id():
-    if systemconfig_obj.system_config_RAZOR_KEY_ID:
-        return systemconfig_obj.system_config_RAZOR_KEY_ID
-    else:
-        return ""
+    systemconfig_obj = get_config()
+    return systemconfig_obj.system_config_RAZOR_KEY_ID if systemconfig_obj else ""
+        
     
 def get_razor_key_secret():
-    if systemconfig_obj.system_config_RAZOR_KEY_SECRET:
-
-        return systemconfig_obj.system_config_RAZOR_KEY_SECRET
-    else:
-        return ""
+    systemconfig_obj = get_config()
+    return systemconfig_obj.system_config_RAZOR_KEY_SECRET if systemconfig_obj else ""
 
 def get_host_companyName(request):
-    if systemconfig_obj.system_config_COMPANY_TITLE:
-        return {'company_name':systemconfig_obj.system_config_COMPANY_TITLE}
-    else:
-        return ""
+    systemconfig_obj = get_config()
+    return {'company_name': systemconfig_obj.system_config_COMPANY_TITLE} if systemconfig_obj else ""
 
 def get_host_companyAddress():
-    if systemconfig_obj.system_config_COMPANY_ADDRESS:
-
-        return systemconfig_obj.system_config_COMPANY_ADDRESS
-    else:
-        return ""
+    systemconfig_obj = get_config()
+    return systemconfig_obj.system_config_COMPANY_ADDRESS if systemconfig_obj else ""
 
 def get_host_companyPhone(request):
-    if systemconfig_obj.system_config_COMPANY_PHONE:
-    
-        return {'company_Phone':systemconfig_obj.system_config_COMPANY_PHONE}
-
-    else:
-        return ""
+    systemconfig_obj = get_config()
+    return {'company_Phone': systemconfig_obj.system_config_COMPANY_PHONE} if systemconfig_obj else ""
 
 def get_host_companyEmail():
-    if systemconfig_obj.system_config_COMPANY_EMAIL:
-        return systemconfig_obj.system_config_COMPANY_EMAIL
-    else:
-        return ""
+    systemconfig_obj = get_config()
+    return {'company_email': systemconfig_obj.system_config_COMPANY_EMAIL} if systemconfig_obj else ""
 
 def get_host_paymentMethod():
-    if systemconfig_obj.system_config_PAYMENT_METHOD:
-
-        return systemconfig_obj.system_config_PAYMENT_METHOD
-    else:
-        return ""
+    systemconfig_obj = get_config()
+    return systemconfig_obj.system_config_PAYMENT_METHOD if systemconfig_obj else ""
 
 def get_host_databaseUserName():
-    if systemconfig_obj.system_config_DATABASE_USER:
-        return systemconfig_obj.system_config_DATABASE_USER
-    
-    else:
-        return ""
+    systemconfig_obj = get_config()
+    return systemconfig_obj.system_config_DATABASE_USER if systemconfig_obj else ""
     
 def get_host_CompanyLogo(request):
-    if systemconfig_obj.system_config_COMPANY_LOGO:
-        return {'company_logo': systemconfig_obj.system_config_COMPANY_LOGO}
-    else:
-        return {'company_logo':"https://bootstrapious.com/i/snippets/sn-nav-logo/logo.png"}
+    systemconfig_obj = get_config()
+    return {'company_logo': systemconfig_obj.system_config_COMPANY_LOGO} if systemconfig_obj else ""
     
 def get_host_Currency(request):
-    if systemconfig_obj.system_config_Currency:
-        return {'payment_curruncy':systemconfig_obj.system_config_Currency}
-    else:
-        return ""
+    systemconfig_obj = get_config()
+    return {'payment_curruncy':systemconfig_obj.system_config_Currency} if systemconfig_obj else ""
 
 
 def get_host_companyAddress_html(request):
-    if systemconfig_obj.system_config_COMPANY_ADDRESS:
-        return {'company_address':systemconfig_obj.system_config_COMPANY_ADDRESS}
-    else:
-        return ""
+    systemconfig_obj = get_config()
+    return {'company_address':systemconfig_obj.system_config_COMPANY_ADDRESS} if systemconfig_obj else ""
 
 def get_host_companyEmail_html(request):
-    if systemconfig_obj.system_config_COMPANY_EMAIL:
-        return {'company_email':systemconfig_obj.system_config_COMPANY_EMAIL}
-    else:
-        return ""
-    
+    systemconfig_obj = get_config()
+    return {'company_email':systemconfig_obj.system_config_COMPANY_EMAIL} if systemconfig_obj else ""
+
 
 def get_host_companyLandline_html(request):
-    if systemconfig_obj.system_config_COMPANY_LANDLINE:
-        return {'company_landline':systemconfig_obj.system_config_COMPANY_LANDLINE}
-    else:
-        return ""
+    systemconfig_obj = get_config()
+    return {'company_landline':systemconfig_obj.system_config_COMPANY_LANDLINE} if systemconfig_obj else ""
 
 def get_host_website():
-    if systemconfig_obj.system_config_HOST_WEBSITE:
-        return systemconfig_obj.system_config_HOST_WEBSITE
-    else:
-        return "http://127.0.0.1:8000/"
+    systemconfig_obj = get_config()
+    return systemconfig_obj.system_config_HOST_WEBSITE if systemconfig_obj else "http://127.0.0.1:8000/"
+         
     
 def get_host_website_html(request):
-    if systemconfig_obj.system_config_HOST_WEBSITE:
-        return {'host_website':systemconfig_obj.system_config_HOST_WEBSITE}
-    else:
-        return ""
+    systemconfig_obj = get_config()
+    return {'host_website':systemconfig_obj.system_config_HOST_WEBSITE} if systemconfig_obj else ""
 
 def Mail_send(data,email_from,email_to,email_password):
     start = time.time()

@@ -95,8 +95,8 @@
     $.ajax({
       url: `/popup_data/${event_id}`,
       type: 'GET',
-
       success: function (data) {
+        console.log(data)
 
         for (var i = 0; i < data.event_item.length; i++) {
           if (data.event_item[i].event_id == event_id) {
@@ -106,7 +106,7 @@
               <p></p>
               <h6>${Date(data.event_item[i].Event_from)}</h6>
               <p></p>
-              <h6>${data.event_location[i].title}</h6>
+              <h6>${data.event_location[i].title }</h6>
               <p></p>
               <h6>${data.event_location[i].address}</h6>
               <p></p>
